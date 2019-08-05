@@ -37,7 +37,9 @@ the program won't create a fileystem nor repair one.
 
 There *might* be a limited facility available for this,
 from within forth.  Something was done about this, though
-the effort was incomplete, possibly. ;)
+the effort was incomplete, possibly.
+
+See: the 'eflmkdir' word, for specifics, there. ;)
 
 // Wed Jun  7 03:06:13 UTC 2017
 // 4735-a0b
