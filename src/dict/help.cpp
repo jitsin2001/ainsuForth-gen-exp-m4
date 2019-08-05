@@ -21,7 +21,23 @@ const char who_str[] = "who";
 void _who(void) {
   // hex 1d10 dup 48 dump
   // _hex();
-  dStack_push(0x2070); // nothing sacred, experiment!  YMMV.
+
+#undef WHODUMP
+
+#ifdef ADAFRUIT_ITSYBITSY_M4_EXPRESS
+  #define WHODUMP
+  dStack_push(0x21b0); // nothing sacred, experiment!  YMMV.
+#endif
+
+#ifdef ADAFRUIT_TRELLIS_M4_EXPRESS
+  #define WHODUMP
+  dStack_push(0x2150);
+#endif
+
+#ifndef WHODUMP
+  dStack_push(0x2070);
+#endif
+
   _dupe();
   dStack_push(0x50);
   _dump();
