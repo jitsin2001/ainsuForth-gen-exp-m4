@@ -1,6 +1,46 @@
+// Mon Aug  5 02:36:37 UTC 2019
+// 4737-a3c-00p- // ainsuForth-gen-exp-m4
+
+// On branch testing-gg- / post-release of 0.1.0
+
+Release 0.1.0 on 5 August 2019.  Should be able to
+talk to the M4 QSPI flashROM on ItsyBitsy M4 and
+selected other SAMD51 targets in this series (Trellis M4,
+Feather M4 Express).
+
+Must be used with outdated Adafruit libs; current
+libs (2019) are not (yet) supported.  Roll back to
+October 2018 lib versions (see elsewhere for which
+libs to roll back; this issue is limited to QSPI
+flashROM support related compile) (remove the
+requirement for QSPI flashROM support and the
+compile issue *may* go away - untested).
+
+The program has a small vocabulary related to reading
+and writing to flashROM (SPI, or QSPI, for SAMD21 and
+SAMD51 targets, respectively).
+
+The program will replay formerly stored (forth) code
+found in a single file in flashROM, as if a human had
+typed it in.
+
+It will also acquire new lines to this 'player piano'
+code (by appending to an existing text file stored in
+the filesystem on the flashROM).
+
+Further, it can re-initialize this file to an empty
+file (or pseudo-empty, with a single character stored
+in it, or what-have-you) ;)
+
+The flashROM must have been initialized somewhere else;
+the program won't create a fileystem nor repair one.
+
+There *might* be a limited facility available for this,
+from within forth.  Something was done about this, though
+the effort was incomplete, possibly. ;)
+
 // Wed Jun  7 03:06:13 UTC 2017
 // 4735-a0b
-
 
 2017-06-07
 wa1tnr <wa1tnr@users.noreply.github.com>:
