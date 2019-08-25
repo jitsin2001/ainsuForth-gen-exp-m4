@@ -1,379 +1,22 @@
-// Mon Aug  5 01:29:38 UTC 2019
-// 4737-a3c-00m- // ainsuForth-gen-exp-m4
-
-// On branch develop (for release)
-
-// current target: ItsyBitsy M4 (August 2019) WORKING
-
-// kanflu kagnaf
-
-// older:
-
-// Wed May 29 20:34:39 UTC 2019
-// 4737-a3c-00k- // ainsuForth-gen-exp-m4
-
-// On branch develop (for release)
-
-// current target: Trellis M4 (May 2019)
-
-// peltho
-
-// Mon Nov 12 23:54:26 UTC 2018
-// 4737-a3c-00i- // ainsuForth-gen-exp-m4
-
-// On branch _with_file_io_aa-
-
-// Metro M4 Express now has working file i/o.
-// Trellis M4 Express, ItsyBitsy M4 Express,
-// and Feather M4 Express supported for QSPI
-// flashROM file i/o, as well.
-
-// ATSAMD51J19A, ATSAMD51G19A
-
-// limited to a single, hard-coded filename - this file is
-// stored in the /forth directory of the FAT filesystem on
-// the 2MB QSPI flashROM at this time (12 NOV 2018, 01:47 UTC).
-
-//   edits as of: Mon Nov 12 23:54:26 UTC 2018
-
-// fitudele     neftogr      kerferdi     pliptog      mezveraki
-// stefafo      pibmarute    kelnarg      tifkarsi     sifto
-// tuzzah       tornaque     pivakia      kivandidu    mittaxl
-
-// Sun Nov 11 20:45:12 UTC 2018
-// 4737-a3c-00g- // ainsuForth-gen-exp-m4
-// On branch testing-hh-ii-
-
-// Fri Nov  9 03:44:59 UTC 2018
-// 4737-a3c-00f- // ainsuForth-gen-exp-m4
-// On branch testing-hh-
-
-// August 28 2018 (or earlier) notes, follow.
-
-// itsybitsy m4 basic checkout seems fine.
-
-// title sequence for itsym4 is
-
-//     three colors in sequence
-//     followed by a monopong on D13
-//     until someone connects.
-
-// this is to exercise the dotstar a little.  older code for gemma m0 and trinket m0
-// should have a similar idea going.
-
-// the others are probably sequenced with just a magenta NeoPixel quick blink
-// ping-ponged against the red LED until connection.
-
-// all the above from (human) memory - details may be off.
-
-// previous:
-
-// Sun Nov  4 02:32:24 UTC 2018
-// 4737-a3c-00e- // ainsuForth-gen-exp-m4
-// On branch testing-gg-
-
-// Sun Nov  4 01:50:28 UTC 2018
-// 4737-a3c-00d- // ainsuForth-gen-exp-m4
-// On branch testing-gg-
-
-// Tue Aug 28 18:10:58 UTC 2018
-// 4737-a3c-00c- // ainsuForth-gen-exp-m4
-// On branch master
-
-// Tue Aug 28 17:11:45 UTC 2018
-// 4737-a3c-00b- // ainsuForth-gen-exp-m4
-// On branch testing-ee
-
-// Wed Aug 22 03:12:41 UTC 2018
-// 4737-a3c-00a- // ainsuForth-gen-exp-m4
-
-// Compiles and operational Metro M4 Express (samd51)
-
-
-
-// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-
-//                  s t r u c t u r e
-
-// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-
-// August, 2018:
-
-// This file, ainsuForth-gen-exp-m4.ino, serves as
-// a Changelog pretty much.
-
-// There is NO CODE at all in this file.  It is a placeholder
-// to satisfy the requirement of a correctly named *.ino file
-// to head the project, in the Arduino IDE.
-
-// See various internet references as to how this works,
-// exactly.  Everything but this file is a .cpp file, and
-// that's permitted.
-
-// ainsuForthsketch.cpp  is the expected top level file, and
-// serves the same purpose as the primary (the .ino) file does.
-
-// It has setup() and loop() defined, for example.
-
-// Each (and every) .cpp needs to include Arduino.h, to
-// bring in the basics (such as typedef statements) that are
-//  not in the compiler itself:
-
-// #include <Arduino.h>
-
-// like that.
-
-// the ./src directory is the only allowed directory name for
-// the first-level source tree, found to function correctly.
-
-// Other directory names at the same level (as ./src) appear to
-// be ignored by the Arduino IDE (and so are a great place to
-// hide good information the compiler should not try to parse).
-
-
-// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-
-
-// more previous:
-// Wed Aug 22 02:31:57 UTC 2018
-// Thu 12 Jul 14:20:50 UTC 2018
-// 4737-a3b-01b- // ainsuForth-gen-exp-m4
-
-// Thu 12 Jul 06:31:01 UTC 2018 // 4737-a3b-019-
-
-// Fri  6 Jul 06:50:19 UTC 2018 // 4737-a3b-017-
-// Sat 23 Jun 02:43:45 UTC 2018 // 4737-a3b-00b-
-// Fri 22 Jun 21:37:41 UTC 2018 // 4737-a3b-009-
-// Fri 22 Jun 17:36:48 UTC 2018 // 4737-a3b-003-
-// Thu 21 Jun 22:17:21 UTC 2018 // 4737-a3b-001-  +dict_comments_only.cpp file
-// Thu 21 Jun 17:57:32 UTC 2018 // 4737-a3a-0fe-
-// Wed 20 Jun 22:29:00 UTC 2018 // 4737-a3a-0fb-
-// Wed 20 Jun 21:18:37 UTC 2018 // 4737-a3a-0f9-
-// Wed 20 Jun 18:54:05 UTC 2018 // 4737-a3a-0f7-
-// Mon 18 Jun 21:39:23 UTC 2018 // 4737-a3a-0f5-
-
-// Mon 18 Jun 23:44:16 UTC 2018
-// +crickit_cpx_as_itsy_m0
-
-// crickit CPX supported when compiled as ItsyBitsy M0.
-//    Has working NeoPixel (D39) and internal LED (on D37)
-
-//    Tested good:
-
-//    * cpx
-//    * itsy m4
-//    * gemma m0
-//    * trinket m0
-//    * crickit cpx
-//    * metro m0 expr
-//    * metro m4 expr
-//    * feather m0 expr
-
-//    Note - the 'pixel' word is more interesting on the CPX target board.
-
-/*
-
-1 13 pinMode
-: pon 1 13 pinWrite ;
-: poff 0 13 pinWrite ;
-pon
-poff
-: blinks 0 do
-pon 300 delay
-poff 400 delay
-loop ;
-3 blinks
-5 blinks
-17 blinks
-
-*/
-
-// Mon 18 Jun 06:10:28 UTC 2018
-// 4737-a3a-0f2-
-
-// good clean sweep - all tested good on RGB and available filesystem support.
-// this is the best of ainsuForth as of 18 June 2018 - in any branch or repository.
-
-// Mon 18 Jun 05:32:01 UTC 2018
-// 4737-a3a-0e7-
-
-// Mon 18 Jun 03:50:24 UTC 2018
-// 4737-a3a-0e5-
-
-// second attempt to modify testing-aa after a good merge.
-
-// CPX is now okay with NeoPixels.  The pix40 business was bad for CPX - enough to hang it.
-
-// TODO: verify ItsyM4, Feather M0 Express, Metro M0 Express and Metro M4 Express each at least functions (with or without onboard RGB led support).
-
-// Metro M0 Express is now okay with NeoPixel.
-// ItsyBitsy M4 is now okay with its dotstar (3-color strobe, once, prior to USB serial connection, only).
-// Feather M0 Express is now okay with its singleton onboard NeoPixel.
-
-// Metro M4 needed an adjustment  -- may warrant a recheck of the other boards.
-// Trinket M0 also needed an adjustment - it is dotstar.
-// Gemma M0 as well needed adjustment.  compatibility.h got a workout today.
-
-// Finally - dotstar.cpp had a big leak that is now plugged (hopefully).
-// Unlike neo_pixel.cpp it never had a conditional to bring in all the code in the file.
-// Now, it does.  CPX seemed to need it (something escaped the logic net and the CPX build unmasked this.  No idea just what that was.
-
-// Sun 17 Jun 22:09:15 UTC 2018
-// 4737-a3a-0e0-
-
-// +eflmkdir word - external flash mkdir '/forth' (the path, '/forth' is hard-coded).
-
-// caspitana   asa   selkitte 
-
-// On branch 'testing-aa'
-// Current Target: Feather M0 Express 17 June 2018 22:09z
-
-
-// Towards Feather M0 Express JEDEC newfile instantiation (and its containing directory).
-
-
-// New Word in Forth Dictionary:
-
-//     see ag, the silver searcher entry, below - good example of all requirements to add a new word to the forth dictionary, from scratch.
-
-//      it's near line 68.
-
-
-
-
-// - - - - - - - - - - - - - - - -
-// - - - - - - - - - - - - - - - -
-// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-// TESTBED: Adafruit Feather M0 Express only.  17 June 2018 22:09 UTC
-// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-// - - - - - - - - - - - - - - - -
-// - - - - - - - - - - - - - - - -
-
-// Sun 17 Jun 21:28:37 UTC 2018
-// 4737-a3a-0cf-
-
-// Prep for 'git branch testing-aa'
-// commit in new branch.
-
-// This message only in branch testing-aa at this time (21:53z 17 June 2018).
-
-// this is master branch again.
-
-// this comment only in branch 'master' as of 21:54z on 17 June, 2018.
-
-// Sun 17 Jun 05:21:05 UTC 2018
-// 4737-a3a-0ce-
-
-// Sun 17 Jun 04:01:59 UTC 2018
-// 4737-a3a-0cc-
-
-// celepatter  utantun   swanton  telgar fisuva
-
-// 17 June 2018:
-//   Second Test Run:
-//   * Metro M0 Express tested against.  JEDEC good and the load and download words work fine, as does the remove word.
-//   * as expected NeoPixel support wasn't there.  Easy fix, just put in the effort.
-
-//   First Test Run:
-//   * tested against Feather M0 Express.  Working NeoPixel.
-//   * JEDEC good; did not instantiate file to test load and download words.
-//   *  in forth, type:
-//      1 13 pinMode 1 13 pinWrite (human delay) 0 13 pinWrite  // test D13 LED
-//   * modded to more automatically operate with NeoPixel on D8 - not working.
-//   * tested (late, just before commit) against ItsyBitsy M4 and seems fine (dotstar prelude is operational)
-
-
-
-
-
-
-// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-// - - - -
-// - - - -
-// - - - -                ag, the silver searcher -- eflmkdir 
-// - - - -
-// - - - -
-// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-
-// 17 June 2018, 23:23z - ag output (brief, edited):
-
-//  rvim ard $ ag eflmkdir
-// Dictionary.h
-// 4:// eflmkdir word needs getline.h included
-
-// flashDict.cpp
-// 4:// eflmkdir - external flashROM mod - create new directory 17 June 2018.
-// 5:// NOTE: you must compile this 'eflmkdir' word.  The very
-// 17:// { eflmkdir_str,       _eflmkdir,        IMMEDIATE + COMP_ONLY },
-// 348:  { eflmkdir_str,       _eflmkdir,        IMMEDIATE + COMP_ONLY },
-
-// src/kernel/getline.h
-// 49:extern const char eflmkdir_str[]; // = "eflmkdir"; // forth vocabulary external flash mkdir
-// 50:extern void _eflmkdir(void); // OLD NAME WAS: extern void create_test_directory(void);
-
-// src/kernel/getline.cpp
-// 448:const char eflmkdir_str[] = "eflmkdir"; // forth vocabulary external flash mkdir
-// 450:void _eflmkdir(void) {
-// 893:  // _eflmkdir(); // OLD NAME WAS: create_test_directory();
-
-// ainsuForth-gen-exp-m4.ino
-// 4:// +eflmkdir word - external flash mkdir '/forth' (the path, '/forth' is hard-coded).
-//  rvim ard $ 
-
-// Tue 12 Jun 23:47:23 UTC 2018
-// 4737-a3a-09b-
-
-// dotstar for ItsyM4
-
-// Tue 12 Jun 20:55:50 UTC 2018
-// 4737-a3a-09a-  // see the crkt (SAMD21) variant of this code for history of this shred
-
-// calcifoss
-
-// attempt to include ItsyBitsyM4 in this general/generic M4 version of the code base.
-
-
-// previous timestamps:
-// Sat 26 May 03:36:19 UTC 2018
-// 4737-a3a-05t-
-
-// mipafelmp  kevtiga  fibebbl
-
-// kronstan  telvugulo
-
-
-// Wed 23 May 19:37:12 UTC 2018
-// 4737-a3a-05s-
-
-// pebliak  nevado  tesfu
-// keevado nfelgik
+// Sun 13 May 06:53:54 UTC 2018
+// 4737-a3a-03f-
+
+// elinore sagritta
+// kara tphop
+// inga soll
+// kelka say
+// iskee lager
+
+// ispo factotum milagre
+// kandra helgar tronde
 
 // working on an M4 implementation/port.
 
-// Wed 23 May 03:16:05 UTC 2018
-// 4737-a3a-05p-
+// Sun 13 May 03:29:16 UTC 2018
+// 4737-a3a-03c-
 
-// Tue 22 May 23:16:53 UTC 2018
-// 4737-a3a-05k-
-
-// Tue 15 May 01:57:23 UTC 2018
-// 4737-a3a-05f-
-
-// Mon 14 May 22:46:36 UTC 2018
-// 4737-a3a-05e-
-
-// Mon 14 May 20:26:35 UTC 2018
-// 4737-a3a-05c-
-
-// Mon 14 May 18:47:28 UTC 2018
-// 4737-a3a-05a-
-
-// Sun 13 May 06:53:54 UTC 2018
-// 4737-a3a-03f-
+// Sun 13 May 01:18:47 UTC 2018
+// 4737-a3a-01a-
 
 // Wed Jan 31 00:27:18 UTC 2018
 // 4737-a0e-01a-
@@ -381,13 +24,17 @@ loop ;
 // .arduino15/packages/adafruit/hardware/samd/1.0.21/variants/feather_m0_express/variant.h
 // that's the location for feather M0 Express that gave D29 and D30 correctly.  15 Feb 2018d
 
+
 // feather M0 Expresss:
 //    SCK is on D30  -- ainsuForth can use pinMode and pinWrite on '30'.
 //    MOSI is on D29
 
+
 // confirmed: ST7565 can run on MOSI and SCK when referred to as 29 and 30 in the regular
 //                   adafruit  arduino  ST7565 driver.  15 Feb 2018 15:48 UTC
 //  using Feather M0 express
+
+
 
 // MALAMUTE   CHACHARRE   PELGRUUT   KUSKIP
 
@@ -396,11 +43,16 @@ loop ;
 //   on 31 Jan 2018.  When incrementing ainsuForth-gen-exp shred
 //   in (immediate) future, please take this into account.
 
+
+
 // GOOD ON Metro M0 Express.  Most likely fine on Trinket M0,
 // Feather M0 Express as well as CPX.  Needs additional tests
 // to confirm all that.
 
 // Only Gemma M0 is unconfigured and untested, now, of the five platforms.
+
+
+// previous timestamps:
 
 // Tue Jan 16 02:30:09 UTC 2018
 // 4737-a0d-05j-
@@ -574,11 +226,8 @@ loop ;
 // --------------------------------------------------
 // --------------------------------------------------
 // ---                                  -------------
-// ---   Tue 15 May 01:57:23 UTC 2018   -------------
+// ---   Thu Aug  3 21:42:35 UTC 2017   -------------
 // ---                                  -------------
-// --------------------------------------------------
-// --------------------------------------------------
-// SUCCESS.  Did something with QSPI on Metro M4 Express Beta.  Seems to auto-configure for Metro M0 Express - no intervention. -15 May 2018
 // --------------------------------------------------
 // --------------------------------------------------
 // SUCCESS.  Wrote a download file, then read it in, using the 'download' and then the 'load' words.  w00t.
@@ -589,9 +238,12 @@ loop ;
 // BUG:  captures the '\end.' word to SPI flash file.  Omit in future revision.
 
 
+
 // MIPIXIC  CESSOME  RALDOXI  15:43z Thu 03 Aug 2017
 
 // parser looks (provisionally) functional for whole-line echo to capture file.
+
+
 
 
 // KELKANNE  GRIAMO  FISPARD 
@@ -600,6 +252,7 @@ loop ;
 
 // partial: input line is echoed, and only once, in preparation for file capture to SPI flash as a file.fs or file.txt &c.
 
+
 // the 'see' word was reinstated.  Appears to function well.  2 July 22:44z
 
 // several words are now untested. 2 July 22:45z
@@ -607,6 +260,9 @@ loop ;
 // ++store_fetch.cpp
 // ++dict_entries.cpp
 // major housekeeping: dict_entries.h
+
+
+
 
 
 // quite a bit of juggling.  Mistakes made?
@@ -628,9 +284,6 @@ loop ;
 // , 2drop c! - three words added to dictionary.
 
 // PRIMITIVE FORTH - working 18 June  -  HABILLEAUX   CHOGUFE   STELDONE   PARKEFF
-
-
-// monopong   wa1tnr  28 August 2018
 
 /******************************************************************************/
 /**  YAFFA - Yet Another Forth for Arduino                                   **/
@@ -724,4 +377,5 @@ loop ;
 /**    Fix ENVIRONMENT? Query to take a string reference from the stack.     **/
 /**                                                                          **/
 /******************************************************************************/
+
 

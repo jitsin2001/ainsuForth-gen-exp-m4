@@ -1,21 +1,7 @@
-// Sun 17 Jun 04:01:59 UTC 2018
-// 4737-a3a-0cc-
-
-// Tue 12 Jun 20:55:50 UTC 2018
-// 4737-a3a-09a-
-// CONFIDENCE is limited -- too much ifdef stuff crufted on without a rethink.
-// from this point, forward, one must look askance at the C preprocessor directives, here.
-
-// Mon 14 May 22:46:36 UTC 2018
-// 4737-a3a-05e-
-
-// Mon 14 May 18:47:28 UTC 2018
-// 4737-a3a-05a-
+// Sun 13 May 01:18:47 UTC 2018
+// 4737-a3a-01a-
 
 // version bump
-
-// Sun 13 May 06:53:54 UTC 2018
-// 4737-a3a-03f-
 
 // Mon Jan 15 18:14:33 UTC 2018
 // 4737-a0d-05c-
@@ -30,7 +16,7 @@
 
 // 29 July -- not proofread very well.  Needs testing.  See diff.
 
-#include "compatibility.h" // ainsuForth selection of target board
+#include "compatibility.h" // # ainsuForth selection of target board
 
 #define AINSU_ON_ADAFRUIT_GEMMA
 
@@ -43,39 +29,10 @@
 #ifndef __YAFFA_H__
 #define __YAFFA_H__
 
-
-
-// QSPI_FLASHROM
-// #ifdef QSPI_FLASHROM_PRESENT // switched in compatibility.h
-#ifdef QSPI_FLASHROM_PRESENT // switched in compatibility.h
-// -------  use this to switch between them   ---------
-  #undef QSPI_FLASHROM_LIB_ENABLED  // swap these two
-  #define QSPI_FLASHROM_LIB_ENABLED // swap these two
-// -------  use this to switch between them   ---------
-#endif // #ifdef QSPI_FLASHROM_PRESENT
-
-// default -- it is defined and will be used.
-
-#ifdef QSPI_FLASHROM_LIB_ENABLED
-  #ifndef HAS_QSPI_FLASHROM_LIB
-    #define HAS_QSPI_FLASHROM_LIB
-  #endif
-#endif
-
-#ifndef QSPI_FLASHROM_LIB_ENABLED
-  #ifdef HAS_QSPI_FLASHROM_LIB
-    #undef HAS_QSPI_FLASHROM_LIB
-  #endif
-#endif
-
-// TODO: mass comment-out all these lines, 70-92:
-
-#ifdef NEVER_DEF_JUNE_2018
-// NEO_PIXEL
 // -------  use this to switch between them   ---------
 
-#define NEO_PIXEL_LIB_ENABLED // swap these two
 #undef NEO_PIXEL_LIB_ENABLED  // swap these two
+#define NEO_PIXEL_LIB_ENABLED // swap these two
 
 // -------  use this to switch between them   ---------
 
@@ -91,11 +48,6 @@
     #undef HAS_NEO_PIXEL_LIB
   #endif
 #endif
-
-#endif // #ifdef NEVER_DEF_JUNE_2018
-
-
-
 
 
 
@@ -204,16 +156,16 @@ static const unsigned long SRAM_SIZE = 32;
 
 
   
-#if defined(__SAMD51J19A__) | (__SAMD51G19A__) // Adafruit Metro M4 Express Beta OR ItsyBitsyM4 - June 2018
+#if defined(__SAMD51J19A__) | (__SAMD51G19A__) // Adafruit Metro M4 Express Beta OR ItsyBitsyM4
 
 static const unsigned long SRAM_SIZE = 192;
-
 
 #if defined(__SAMD51J19A__) // metro m4
 #define PROC_STR "SAMD51J19A"
 #elif defined(__SAMD51G19A__) // itsym4
 #define PROC_STR "SAMD51G19A"
 #endif
+
 
 #define HOLD_SIZE     64
 #define PAD_SIZE      128

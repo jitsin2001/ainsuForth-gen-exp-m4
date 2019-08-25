@@ -1,35 +1,18 @@
-// Fri  6 Jul 06:50:19 UTC 2018
-// 4737-a3b-017-
-
-// Update for ADAFRUIT_FEATHER_M4_EXPRESS
-
-// Mon 18 Jun 21:39:23 UTC 2018
-// 4737-a3a-0f5-
-
-// Mon 18 Jun 05:32:01 UTC 2018
-// 4737-a3a-0e7-
-
-// Sun 17 Jun 04:01:59 UTC 2018
-// 4737-a3a-0cc-
-
-// removal or mod of PIN 12 for MM4X
-// removal of assumption of 8x strip
-// this one commit represents Feather M0 Express with working NPX but no external array of NPX.
-
-// Tue 22 May 23:16:53 UTC 2018
-// 4737-a3a-05k-
-
-// This version modified to allow onboard NPX on Pin 40 as
-// well as a strip of 8x NeoPixels on Pin 12. --22 May 2018
-
 // Sun 13 May 01:18:47 UTC 2018
 // 4737-a3a-01a-
 
 // Tue Jan 16 02:30:09 UTC 2018
 // 4737-a0d-05j-
 
+// Tue Jan 16 01:14:29 UTC 2018
+// 4737-a0d-05f-
+
 // Mon Jan 15 19:19:47 UTC 2018
 // 4737-a0d-05d-
+
+// Mon Jan 15 18:14:33 UTC 2018
+// 4737-a0d-05c-
+
 
 // Tue Jul 25 07:27:48 UTC 2017
 // 4735-b0a-09-
@@ -74,8 +57,12 @@
 
 #undef PIN
 
-#ifdef ADAFRUIT_METRO_M4_EXPRESS // #ifdef __SAMD51J19A__
+#ifdef __SAMD51J19A__
   #define PIN               40 // peculiar to Metro M4 Express.
+#endif
+
+#ifdef ADAFRUIT_METRO_M0_EXPRESS
+  #define PIN               40 // peculiar to Metro M0 Express.
 #endif
 
 #ifdef ADAFRUIT_CIRCUITPLAYGROUND_M0
@@ -86,43 +73,22 @@
   #define PIN                8 // peculiar to Feather M0 Express
 #endif // 15 Jan 2018
 
-#ifdef ADAFRUIT_FEATHER_M4_EXPRESS
-  #define PIN                8 // peculiar to Feather M4 Express
-#endif // 06 July 2018
-
 #ifdef ADAFRUIT_TRINKET_M0
   #define PIN                1 // arbitrary assignment? Trinket M0
-#endif
+#else
+  #ifndef PIN // sieve fall-through clause
+    #define PIN              2 // arbitrary assignment to non-specific board
+  #endif
+#endif // 15 Jan 2018
 
-#ifndef PIN // sieve fall-through clause
-  #define PIN              2 // arbitrary assignment to non-specific board
-#endif
-
-// #undef PIN     // override 22 May 2018
-// #define PIN 12 // override 22 May 2018 - M4X arbitrarily assigned.
-
-#undef PIN     // override 22 May 2018
-#define PIN COMMUTED_PIN_NPX // how about them apples
 
 // How many NeoPixels are attached to the Arduino?
 // #define NUMPIXELS        10 // circuit playground Express
 
 #undef NUMPIXELS
 
-#ifdef ADAFRUIT_TRELLIS_M4_EXPRESS
-  #define NUMPIXELS         32
-#endif
-
-#ifdef ADAFRUIT_METRO_M4_EXPRESS
-  #define NUMPIXELS          1
-#endif
-
-// #ifdef __SAMD51J19A__
-//  #define NUMPIXELS          1 // Metro M4 Express
-// #endif
-
-#ifdef ADAFRUIT_ITSYBITSY_M0
-  #define NUMPIXELS          1 // Crickit CPX - pretend itsybitsym0
+#ifdef __SAMD51J19A__
+  #define NUMPIXELS          1 // Metro M4 Express
 #endif
 
 #ifdef ADAFRUIT_METRO_M0_EXPRESS
@@ -140,45 +106,24 @@
 // local condition: NeoPixel 8 strip connected to Trinket M0:
 #ifdef ADAFRUIT_TRINKET_M0
   #define NUMPIXELS          8 // NeoPixel strip 8x
-#endif
-
-
-#ifndef NUMPIXELS          // sieve fall-through clause
-  #define NUMPIXELS     1 // other Adafruit SAMD21 boards
-#endif                     // Not zero - some other define can remove this code entirely
-
-// #undef NUMPIXELS    // 22 may override
-// #define NUMPIXELS 8 // 22 may override
+#else
+    #ifndef NUMPIXELS          // sieve fall-through clause
+       #define NUMPIXELS     1 // other Adafruit SAMD21 boards
+    #endif                     // Not zero - some other define can remove this code entirely
+#endif // 15 Jan 2018
 
 // When we setup the NeoPixel library, we tell it how many pixels,
 // and which pin to use to send signals.
 
-// #undef PIN
-// #undef NUMPIXELS
-
-// #define PIN 8 // desperate override Mon 18 June 04:06z
-// #define NUMPIXELS     1 // other Adafruit SAMD21 boards
-
 Adafruit_NeoPixel pixels = Adafruit_NeoPixel(NUMPIXELS, PIN, NEO_GRB + NEO_KHZ800);
-
-// might be a memory hog; this is for the legacy onboard NeoPixel, only:
-// Adafruit_NeoPixel pix40 =  Adafruit_NeoPixel(1, 40, NEO_GRB + NEO_KHZ800);
 
 int delayval = 300;
 int delaySval = 110;
 
 int neoPixelNumber = 0; // zero is a legal value and names the first pixel in the string
 
-// void setup_neoPix40(void) { // for the legacy onboard NeoPixel only
-  // pix40.begin();
-  // the whole purpose of providing for the onboard NPX  is to recolor it:
-  // pix40.setPixelColor(0, 0, 1, 1); pix40.show();
-// }
-
 void setup_neoPixel(void) {
-  // DEBUG 04:08z 18 June - comment out two lines:
   pixels.begin(); // This initializes the NeoPixel library.
-  // setup_neoPix40();
 }
 
 
@@ -236,9 +181,7 @@ void _rgb(void) { // ( red green blue -- )
 
     _npx_fetch();
 
-    // 22 may // pixels.setPixelColor(dStack_pop(), pixels.Color(dStack_pop(), dStack_pop(), dStack_pop()));
     pixels.setPixelColor(dStack_pop(), pixels.Color(dStack_pop(), dStack_pop(), dStack_pop()));
-    // 22 may // int ji = dStack_pop(); pixels.setPixelColor(3, pixels.Color(dStack_pop(), dStack_pop(), dStack_pop()));
     pixels.show();
 }
 

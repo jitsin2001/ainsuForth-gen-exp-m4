@@ -1,56 +1,41 @@
-// Fri 22 Jun 18:03:52 UTC 2018
-// 4737-a3b-005-
+// Mon Jan 15 18:14:33 UTC 2018
+// 4737-a0d-05c-
 
-// previous timestamps:
-// Thu 21 Jun 22:17:21 UTC 2018
-// 4737-a3b-001-  +dict_comments_only.cpp file
-
-// eflmkdir - external flashROM mod - create new directory 17 June 2018.
-// NOTE: you must compile this 'eflmkdir' word.  The very
-// act of compilation also executes it
-// (both IMMEDIATE and COMP_ONLY flags are set for it).
-
-// Go ahead and compile it into a word and execute that
-// new word (held as bytecode in RAM) as many times as
-// you like.  It'll just give an ok prompt, as this word
-// checks to see if the directory '/forth' exists or not,
-// and only tries to mkdir if it does not.
-
-// So it is harmless to do it a second, third, fourth .. time.
-
-// { eflmkdir_str,       _eflmkdir,        IMMEDIATE + COMP_ONLY },
-
-// Like that.
-
-
-// Sun 17 Jun 22:09:15 UTC 2018 // 4737-a3a-0e0-
-// Wed 23 May 03:16:05 UTC 2018 // 4737-a3a-05p-
-
-// source word uncommented.
-
-// Mon 14 May 18:47:28 UTC 2018 // 4737-a3a-05a-
-// Sun 13 May 06:53:54 UTC 2018 // 4737-a3a-03f-
-// Mon Jan 15 18:14:33 UTC 2018 // 4737-a0d-05c-
+// version bump
 
 // SPI flashROM stuff
-
 // look for #ifdef HAS_SPI_FLASH_DEMO   10 Dec 2017
 
 // the accept word
 
-// Sat Dec 16 01:24:37 UTC 2017 // 4737-a0a-00a-
-// Sun Dec 10 22:48:03 UTC 2017 // 4735-b0d-00b-   the -00x- is new Dec 10, 2017.
-// Sat Nov 25 19:03:16 UTC 2017 // 4735-b0c-09d-   the -09x- is new Nov 24, 2017.
-// Fri Nov 24 23:31:39 UTC 2017 // 4735-b0c-09b-   the -09x- is new Nov 24, 2017.
-// Thu Aug  3 01:46:56 UTC 2017 // 4735-b0d-00-
+
+// previous timestamps:
+
+// Sat Dec 16 01:24:37 UTC 2017
+// 4737-a0a-00a-
+// Sun Dec 10 22:48:03 UTC 2017
+// 4735-b0d-00b-   the -00x- is new Dec 10, 2017.
+// Sat Nov 25 19:03:16 UTC 2017
+// 4735-b0c-09d-   the -09x- is new Nov 24, 2017.
+// Fri Nov 24 23:31:39 UTC 2017
+// 4735-b0c-09b-   the -09x- is new Nov 24, 2017.
+// Thu Aug  3 01:46:56 UTC 2017
+// 4735-b0d-00-
 
 #include <Arduino.h>
 #include "yaffa.h"
-#include "src/dict/new_dict_entries.h" // #include "src/dict/dict_entries.h" // 21 June 2018
+#include "src/dict/dict_entries.h"
 #include "flashDict.h"
 #include "Dictionary.h"
 #include "Error_Codes.h"
 
+// June 23 22:04z:  Three new words:   ,  2drop  c!
+
+// const char not_done_str[] = " NOT Implemented Yet \n\r";
+
+// const char sp_str[] = " "; // does not belong here
+// stack_t dStack; // no idea where this should go
+// stack_t rStack; // no idea where this should go
 
 /*********************************************************************************/
 /**   'static void _foo(void)'  -- conflicts with 'extern void'                 **/
@@ -76,6 +61,14 @@ static void _two_drop(void) {
 /*********************************************************************************/
 /**                         Dictionary Initialization                           **/
 /*********************************************************************************/
+
+
+// Tue Jun  6 20:42:31 UTC 2017
+// 4733-a9a
+// 
+// ainsuForth NOTE:
+//     flashDict[] assignment
+// belongs in flashDict.cpp for reorganization.
 
 const flashEntry_t DLflashDict[] = {
   { dl_ends_str,        _dl_ends,         NORMAL },  // IMMEDIATE
@@ -112,9 +105,6 @@ const flashEntry_t flashDict[] = {
   /* Order does not matter after here                  */
   /* Core Words                                        */
   /*****************************************************/
-#if defined(INCL_NOP_WORD) || defined(XDICT)
-  { nop_str,            _nop,             NORMAL }, // 22 June 2018
-#endif
   { warm_str,           _warm,            NORMAL },
   { dot_str,            _dot,             NORMAL },
   { minus_str,          _minus,           NORMAL },
@@ -160,7 +150,7 @@ const flashEntry_t flashDict[] = {
   { fetch_str,          _fetch,           NORMAL },
 //   { abort_quote_str,    _abort_quote,     IMMEDIATE + COMP_ONLY },
   { abs_str,            _abs,             NORMAL },
-#ifdef EXT_KERN_ACCEPT // lets get rid of this test - legacy cruft - 22 June 2018
+#ifdef EXT_KERN_ACCEPT
   { accept_str,         _accept,          NORMAL },
 #endif
 //   { align_str,          _align,           NORMAL },
@@ -225,7 +215,7 @@ const flashEntry_t flashDict[] = {
 //   { s_to_d_str,         _s_to_d,          NORMAL },
 //   { sign_str,           _sign,            NORMAL },
 //   { sm_slash_rem_str,   _sm_slash_rem,    NORMAL },
-  { source_str,         _source,          NORMAL }, // uncommented 2018 23 May
+//   { source_str,         _source,          NORMAL },
   { space_str,          _space,           NORMAL },
   { spaces_str,         _spaces,          NORMAL },
 //   { state_str,          _state,           NORMAL },
@@ -297,7 +287,7 @@ const flashEntry_t flashDict[] = {
   { pinWrite_str,       _pinWrite,        NORMAL },
   { pinMode_str,        _pinMode,         NORMAL },
   { pinRead_str,        _pinRead,         NORMAL },
-//   { analogRead_str,     _analogRead,      NORMAL },  // ISTR this was defined
+//   { analogRead_str,     _analogRead,      NORMAL },
 //   { analogWrite_str,    _analogWrite,     NORMAL },
 //   { to_name_str,        _toName,          NORMAL },
 #endif
@@ -310,46 +300,23 @@ const flashEntry_t flashDict[] = {
 
 #ifdef NEO_PIXEL
 
-  { npx_str,            _npx,             NORMAL }, // NORMAL  // set npx array index (e.g. 0-9 on CPX)  '4 npx' sets the 5th npx for future write ops incl. 'rgb'
-  { npx_fetch_str,      _npx_fetch,       NORMAL }, // NORMAL  // fetch npx array index 'npx@ .' prints the current index without disturbing it
-  { rgb_str,            _rgb,             NORMAL }, // NORMAL  // '0 0 1 rgb' sets blue.  '0 0 0 rgb' makes current npx go dark
-  { pixel_str,          _pixel,           NORMAL }, // NORMAL  // 'pixel' runs a demo blinking pattern
-  { cblink_str,         _cblink,          NORMAL }, // NORMAL  // 'cblink' blinks current npx once .. in cyan
-                                                               // 3 npx 9 0 9 rgb -- this would select the 4th npx and color it in magenta
+  { npx_str,            _npx,             NORMAL }, // NORMAL
+  { npx_fetch_str,      _npx_fetch,       NORMAL }, // NORMAL
+  { rgb_str,            _rgb,             NORMAL }, // NORMAL
+  { pixel_str,          _pixel,           NORMAL }, // NORMAL
+  { cblink_str,         _cblink,          NORMAL }, // NORMAL
 
 #endif // #ifdef NEO_PIXEL
 
 #define SPI_FLASH_SRC
 #ifdef SPI_FLASH_SRC
-
 #ifdef HAS_SPI_FLASH_DEMO
-    #warning THIS_THING_TRIPS
-
-  { eflmkdir_str,       _eflmkdir,        IMMEDIATE + COMP_ONLY },
   { load_str,           _load,            NORMAL },
   { echo_bang_str,      _echo_bang,       NORMAL }, 
   { remove_str,         _remove,          NORMAL },
   { download_str,       _download,        NORMAL },
 #endif // #ifdef HAS_SPI_FLASH_DEMO
-
-#ifdef HAS_QSPI_FLASH_DEMO
-    #warning THAT_THING_TRIPS
-  { eflmkdir_str,       _eflmkdir,        IMMEDIATE + COMP_ONLY },
-  { load_str,           _load,            NORMAL },
-  { echo_bang_str,      _echo_bang,       NORMAL }, 
-  { remove_str,         _remove,          NORMAL },
-  { download_str,       _download,        NORMAL },
-#endif // #ifdef HAS_QSPI_FLASH_DEMO
-
 #endif // #ifdef SPI_FLASH_SRC
-
-#ifdef QSPI_FLASHROM
-#ifdef HAS_QSPI_FLASHROM_LIB
-
-// { ffmt_str,           _ffmt,            NORMAL }, // flash format
-
-#endif // HAS_QSPI_FLASHROM_LIB
-#endif // QSPI_FLASHROM
 
 
   { NULL,           NULL,    NORMAL }

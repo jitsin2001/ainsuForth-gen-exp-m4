@@ -1,63 +1,8 @@
-// Wed May 29 20:34:39 UTC 2019
-// 4737-a3c-00k- // ainsuForth-gen-exp-m4
+// Sun 13 May 03:29:16 UTC 2018
+// 4737-a3a-03c-
 
-// On branch develop (for release)
-// branch 'develop' instantiated from branch 'testing-gg-' 29 May 2019
-
-// older:
-// Sun Nov  4 01:50:28 UTC 2018
-// 4737-a3c-00d- // ainsuForth-gen-exp-m4
-// On branch testing-gg-
-
-// previous:
-// Tue Aug 28 18:10:58 UTC 2018
-// 4737-a3c-00c- // ainsuForth-gen-exp-m4
-// On branch testing-ff-
-
-// Tue Aug 28 17:11:45 UTC 2018
-// On branch testing-ee
-
-// Wed Aug 22 03:12:41 UTC 2018
-// 4737-a3c-00a- // ainsuForth-gen-exp-m4
-
-// Thu 12 Jul 06:31:01 UTC 2018
-// 4737-a3b-019- // ainsuForth-gen-exp-m4
-
-// Fri 22 Jun 21:16:52 UTC 2018
-// 4737-a3b-007-
-
-// Fri 22 Jun 18:03:52 UTC 2018
-// 4737-a3b-005-
-
-// Thu 21 Jun 22:17:21 UTC 2018
-// 4737-a3b-001-  +dict_comments_only.cpp file
-
-// Mon 18 Jun 21:39:23 UTC 2018
-// 4737-a3a-0f5-
-
-// Mon 18 Jun 06:10:28 UTC 2018
-// 4737-a3a-0f2-
-
-// Sun 17 Jun 22:09:15 UTC 2018
-// 4737-a3a-0e0-
-
-// signon notice updated +eflmkdir
-
-// Tue 12 Jun 23:47:23 UTC 2018
-// 4737-a3a-09b-
-
-// Tue 12 Jun 20:55:50 UTC 2018
-// 4737-a3a-09a-
-
-// previous timestamps:
-// Wed 23 May 19:37:12 UTC 2018
-// 4737-a3a-05s-
-
-// Mon 14 May 22:46:36 UTC 2018
-// 4737-a3a-05e-
-
-// Sun 13 May 06:53:54 UTC 2018
-// 4737-a3a-03f-
+// Sun 13 May 01:18:47 UTC 2018
+// 4737-a3a-01a-
 
 // Wed Jan 31 00:27:18 UTC 2018
 // 4737-a0e-01a-
@@ -65,14 +10,30 @@
 // Tue Jan 16 02:30:09 UTC 2018
 // 4737-a0d-05j-
 
+// Tue Jan 16 02:20:48 UTC 2018
+// 4737-a0d-05g-
+
+// Tue Jan 16 01:14:29 UTC 2018
+// 4737-a0d-05f-
+
 // Mon Jan 15 19:19:47 UTC 2018
 // 4737-a0d-05d-
 
+// Mon Jan 15 18:14:33 UTC 2018
+// 4737-a0d-05c-
+
 // Large reorg of conditional compilation.  No comment is reliable at the moment. - 15 Jan 2018
+
+
+
+
+
+
 
 // SPI_FLASH_DEMO defines verified.  Can run the program with uninitialized SPI flashROM.
 // _count() fix  (was earlier: _dot_paren() fix that wasn't broken, after all).
 
+// previous timestamps:
 // Sat Dec 16 01:24:37 UTC 2017
 // 4737-a0a-00a-
 
@@ -81,26 +42,20 @@
 
 // Fri Nov 24 04:49:08 UTC 2017
 // 4735-b0c-07z-   the -07x- is new Nov 19, 2017.
-
+// Fri Nov 24 02:42:54 UTC 2017
 // Sun Aug  6 20:09:53 UTC 2017
 // 4735-b0f-03-
 
-// compatibility.h now controls this toggle for HAS_DOTSTAR_LIB:
 // poor practice -- hard coded the answer:
-// #ifdef HAS_DOTSTAR_LIB
-// #ifndef HAS_DOTSTAR_LIB
+#ifdef HAS_DOTSTAR_LIB
+// d#ifndef HAS_DOTSTAR_LIB
 // #define HAS_DOTSTAR_LIB
-// #undef HAS_DOTSTAR_LIB
-// #endif
+#undef HAS_DOTSTAR_LIB
+#endif
 
-
-// 2017 FAT filesystem for M0 Express series boards.
-// Found commented-out in May 2018.
 // FAT fileystem:
 // #include "src/periph/fatfs.h"
 // #include "src/kernel/getkey.h"
-
-
 #include "src/kernel/getline.h"
 
 
@@ -115,14 +70,8 @@
 #include "src/dict/cblink.h"
 #include "Error_Codes.h"
 
-// #ifdef HAS_FOUR_H
-#ifdef HAS_QSPI_FLASHROM_LIB
-  #include "src/periph/qspi/flashrom.h"
-#endif // #ifdef HAS_QSPI_FLASHROM_LIB
-
 /******************************************************************************/
 /**  The Arduino M0 pro has 0x4000 as bootloader offset                      **/
-/**  seen or misremembered: M4 also at 0x4000                                **/
 /******************************************************************************/
 
 /******************************************************************************/
@@ -237,24 +186,19 @@ uint8_t base;  // stores the number conversion radix
 
 // gemma M0 has dotstar:  D3 is data   D4 is clock
 
-#ifndef LEDX
-  #define LED 13
-#else // one edge-case: ADAFRUIT_ITSYBITSY_M0
-  #define LED 37
-#endif
 
 void blink(void) {
-  dStack_push(1); dStack_push(LED);
+  dStack_push(1); dStack_push(13);
 
   pinMode(     dStack_pop(), dStack_pop());
 
-  dStack_push(1); dStack_push(LED);
+  dStack_push(1); dStack_push(13);
 
   digitalWrite(dStack_pop(), dStack_pop());
 
   delay(11); // bad technique
 
-  dStack_push(0); dStack_push(LED);
+  dStack_push(0); dStack_push(13);
   digitalWrite(dStack_pop(), dStack_pop());
 
   delay(3); // bad technique
@@ -263,18 +207,21 @@ void blink(void) {
 
 
 
-//  NEEDS REVIEW with other than the current ItsyBitsyM4 target - 13 June 2018
 void blink_m(void) {
 #ifdef HAS_DOTSTAR_LIB
     loop_dotstar();
-#elif defined HAS_NEO_PIXEL_LIB
+#endif
+
+
+#ifdef HAS_NEO_PIXEL_LIB
     delay(1200);
     _mblink(); // magenta 100 ms blip on neoPixel
     delay(1100);
-#endif // #ifdef HAS_DOTSTAR_LIB
+#else
     delay(1200);
     blink();
     delay(1100);
+#endif
     delay(100);
     // 2500 ms is 24 pulses per minute
 }
@@ -285,7 +232,6 @@ void blink_m(void) {
 /******************************************************************************/
 void setup(void) {                
   uint16_t mem;
-
 #ifdef HAS_NEO_PIXEL_LIB
   setup_neoPixel();
 #endif
@@ -298,11 +244,6 @@ void setup(void) {
   while (!Serial) {
     blink_m();
   }
-
-#ifdef HAS_QSPI_FLASHROM_LIB // see yaffa.h for setting this toggle
-  setup_qspiFlashROM(); // for Metro M4 Express Beta w/QSPI flashROM, only.
-  // Serial.println("Seen: Line 250 sketch");
-#endif
 
 
 #ifdef HAS_SPI_FLASH_DEMO
@@ -334,23 +275,9 @@ void setup(void) {
   pOldHere = pHere;
   
   // Serial.print("\n warm boot message - early bird.  //  Gemma M0 29 Jul 2017\r\n          type 'warm' to reboot"); // instant confirmation
-
-     Serial.print("\n warm boot message - "    );
-     Serial.print("early bird.               " );
-     Serial.print("c: "         gitShowStamp() );
-     Serial.print("\r\n kef-SIWNA "  featureList() );
-     Serial.print("  c4e DEVPR - gen-exp-m4  " );
-     Serial.print(                 dateStamp() );
-     Serial.print("\r\n"                       );
-     Serial.print("          "                 );
-     Serial.print("type 'warm' to reboot"      ); // instant confirmation
-     Serial.print("\r\n "          timeStamp() );
-     Serial.print("       "      branchStamp() );
-     Serial.print("\r\n "         shredStamp() );
-     Serial.print(" "            targetStamp() );
-     Serial.print(" sand birds");
-
-  // 22 august: cosmetic update.  No code changes.
+     Serial.print("\n warm boot message - early bird.  \r\n KANWULF uj DEV - gen-exp-m4  13 May 2018\r\n          type 'warm' to reboot"); // instant confirmation
+     Serial.print("\n Sun 13 May 03:29:16 UTC 2018");
+     Serial.print("\n 4737-a3a-03c-");
 
   // Serial.print("\n warm boot message - early bird.  //  Adafruit Metro M0 Express\r\n      snapshot 30 Jul 2017\r\n          type 'warm' to reboot"); // instant confirmation
   // Serial.print("\n warm boot message - early bird.  //  Adafruit Feather M0 Express\r\n      snapshot 30 Jul 2017\r\n          type 'warm' to reboot"); // instant confirmation
