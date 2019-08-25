@@ -276,9 +276,32 @@ void setup(void) {
   
   // Serial.print("\n warm boot message - early bird.  //  Gemma M0 29 Jul 2017\r\n          type 'warm' to reboot"); // instant confirmation
      Serial.print("\n warm boot message - early bird.  \r\n FILBERT uj DEV - gen-exp-m4  25 Aug 2019\r\n          type 'warm' to reboot"); // instant confirmation
-     Serial.print("\n Sun Aug 25 09:54:11 UTC 2019");
-     Serial.print("\n 4737-a3a-03c-borked-");
-     Serial.print("\n ROLLBACK version");
+     Serial.print("\r\n Sun Aug 25 10:51:14 UTC 2019");
+
+     Serial.print("\r\n 4737-a3a-03c-borked-");
+     Serial.print("\r\n ROLLBACK version");
+
+  // Sun Aug 25 11:07:26 UTC 2019 - note on this 'master' branch, created today
+  // Rolled back to near the commit 3aa0bc1ec16372fd  on 25 August 2019 since the
+  // program did not compile against libraries 'on hand' (not necessarily 'current' libs).
+
+  /*
+     commit 3aa0bc1ec16372fdbf9a2a65b9d06c54ec58d950
+     Author: wa1tnr <wa1tnr@users.noreply.github.com>
+     Date:   Sun May 13 06:59:13 2018 +0000
+
+         modified:   ainsuForth-gen-exp-m4.ino
+         modified:   src/dict/help.cpp
+
+     The dump produced by 'who' is now realigned to where the good stuff happens, for this target board.
+
+     // Sun 13 May 06:53:54 UTC 2018
+     // 4737-a3a-03f-
+
+     // elinore sagritta
+     // kara tphop
+
+*/
 
   // Serial.print("\n warm boot message - early bird.  //  Adafruit Metro M0 Express\r\n      snapshot 30 Jul 2017\r\n          type 'warm' to reboot"); // instant confirmation
   // Serial.print("\n warm boot message - early bird.  //  Adafruit Feather M0 Express\r\n      snapshot 30 Jul 2017\r\n          type 'warm' to reboot"); // instant confirmation
