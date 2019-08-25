@@ -275,9 +275,10 @@ void setup(void) {
   pOldHere = pHere;
   
   // Serial.print("\n warm boot message - early bird.  //  Gemma M0 29 Jul 2017\r\n          type 'warm' to reboot"); // instant confirmation
-     Serial.print("\n warm boot message - early bird.  \r\n KANWULF uj DEV - gen-exp-m4  13 May 2018\r\n          type 'warm' to reboot"); // instant confirmation
-     Serial.print("\n Sun 13 May 03:29:16 UTC 2018");
-     Serial.print("\n 4737-a3a-03c-");
+     Serial.print("\n warm boot message - early bird.  \r\n FILBERT uj DEV - gen-exp-m4  25 Aug 2019\r\n          type 'warm' to reboot"); // instant confirmation
+     Serial.print("\n Sun Aug 25 09:54:11 UTC 2019");
+     Serial.print("\n 4737-a3a-03c-borked-");
+     Serial.print("\n ROLLBACK version");
 
   // Serial.print("\n warm boot message - early bird.  //  Adafruit Metro M0 Express\r\n      snapshot 30 Jul 2017\r\n          type 'warm' to reboot"); // instant confirmation
   // Serial.print("\n warm boot message - early bird.  //  Adafruit Feather M0 Express\r\n      snapshot 30 Jul 2017\r\n          type 'warm' to reboot"); // instant confirmation
