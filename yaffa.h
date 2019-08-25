@@ -32,6 +32,7 @@
 
 // -------  use this to switch between them   ---------
 
+// 25 August 2019: swap these two lines to enable NeoPixel support:
 #undef NEO_PIXEL_LIB_ENABLED  // swap these two
 #define NEO_PIXEL_LIB_ENABLED // swap these two
 
