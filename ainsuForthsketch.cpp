@@ -1,3 +1,4 @@
+// edits: 25 aug 2019
 // Sun 13 May 03:29:16 UTC 2018
 // 4737-a3a-03c-
 
@@ -46,11 +47,10 @@
 // Sun Aug  6 20:09:53 UTC 2017
 // 4735-b0f-03-
 
-// poor practice -- hard coded the answer:
-#ifdef HAS_DOTSTAR_LIB
-// d#ifndef HAS_DOTSTAR_LIB
-// #define HAS_DOTSTAR_LIB
-#undef HAS_DOTSTAR_LIB
+// #ifdef HAS_DOTSTAR_LIB
+#ifndef HAS_DOTSTAR_LIB
+  #define HAS_DOTSTAR_LIB
+// #undef HAS_DOTSTAR_LIB
 #endif
 
 // FAT fileystem:
