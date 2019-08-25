@@ -16,7 +16,7 @@
 
 // 29 July -- not proofread very well.  Needs testing.  See diff.
 
-#include "compatibility.h" # ainsuForth selection of target board
+#include "compatibility.h" // # ainsuForth selection of target board
 
 #define AINSU_ON_ADAFRUIT_GEMMA
 
@@ -156,11 +156,16 @@ static const unsigned long SRAM_SIZE = 32;
 
 
   
-#if defined(__SAMD51J19A__) // Adafruit Metro M4 Express Beta - April/May 2018
+#if defined(__SAMD51J19A__) | (__SAMD51G19A__) // Adafruit Metro M4 Express Beta OR ItsyBitsyM4
 
 static const unsigned long SRAM_SIZE = 192;
 
+#if defined(__SAMD51J19A__) // metro m4
 #define PROC_STR "SAMD51J19A"
+#elif defined(__SAMD51G19A__) // itsym4
+#define PROC_STR "SAMD51G19A"
+#endif
+
 
 #define HOLD_SIZE     64
 #define PAD_SIZE      128
