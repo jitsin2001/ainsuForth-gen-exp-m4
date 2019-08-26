@@ -1,0 +1,20 @@
+Mon Aug 26 06:32:13 UTC 2019
+
+This is a quick copy of the sandbox-ii version
+of ainsuForth-gen-exp-m4 and corresponds to 
+Release 0.1.1 of that repository.
+
+It's here to give a quick demo of the bugfix
+that was done to the ainsuForth-gen-exp-m4
+source on August 25th and 26th, 2019, to get
+compiling and flashROM working properly, again,
+against fully updated libraries from Adafruit's
+github, through the Arduino IDE Library Manager
+and Boards Manager interfaces.
+
+Program appears to be fully functional.
+
+Has not yet been properly updated to this
+repository, so that's what this quick update
+is about (just to get a good copy of it into
+this repository, somewhere).
