@@ -1,0 +1,77 @@
+Mon 04:08z
+
+In file included from /tmp/arduino_build_665965/sketch/src/kernel/getline_options.h:27:0,
+                 from /tmp/arduino_build_665965/sketch/src/kernel/getline.cpp:7:
+/tmp/arduino_build_665965/sketch/src/kernel/getline_m4_exp.cpp:70:49: fatal error: Adafruit_QSPI_GD25Q.h: No such file or directory
+                 #include "Adafruit_QSPI_GD25Q.h"
+                                                 ^
+compilation terminated.
+
+Plan: remove that #include as well. ;)
+
+
+Mon 04:02z
+
+In file included from /tmp/arduino_build_665965/sketch/src/kernel/getline_options.h:27:0,
+                 from /tmp/arduino_build_665965/sketch/src/kernel/getline.cpp:7:
+/tmp/arduino_build_665965/sketch/src/kernel/getline_m4_exp.cpp:69:68: fatal error: Adafruit_SPIFlash_FatFs.h: No such file or directory
+                 #include <Adafruit_SPIFlash_FatFs.h> // NEW LINE 69
+                                                                    ^
+compilation terminated.
+Using library Adafruit_SPIFlash at version 3.1.1
+Using library SPI at version 1.0 in folder: /home/foobar/.arduino15/packages/adafruit/hardware/samd/1.5.3/libraries/SPI 
+Using library Adafruit_ZeroDMA at version 1.0.4 in folder: /home/foobar/.arduino15/packages/adafruit/hardware/samd/1.5.3/libraries/Adafruit_ZeroDMA 
+Using library SdFat_-_Adafruit_Fork at version 1.2.1 in folder: /home/foobar/path/to/libs/Arduino/libraries/SdFat_-_Adafruit_Fork 
+exit status 1
+Error compiling for board Adafruit ItsyBitsy M4 (SAMD51).
+
+  - - - -
+
+To answer this compiler complaint, the plan is simple: to remove the #include
+from ainsuForth. ;)
+
+
+Mon Aug 26 03:59:43 UTC 2019
+
+SdFat - Adafruit Fork by Bill Greiman Version 1.2.1
+This was reinstalled (had removed it for the testing;
+it was not installed when the good compile happened
+on 26 August).
+
+This addressed the compiler complaint:
+
+ ../libraries/Adafruit_SPIFlash/src/Adafruit_SPIFlash.h:35:19: fatal error: SdFat.h: No such file or directory
+ #include "SdFat.h"
+                   ^
+compilation terminated.
+Using library Adafruit_SPIFlash at version 3.1.1 in folder: ../libraries/Adafruit_SPIFlash 
+
+
+Mon Aug 26 03:52:55 UTC 2019
+
+The QSPI lib removed from Arduino IDE libraries directory,
+as it is deprecated, iirc.
+
+Next up: bring SPIFlash to current version, summer 2019. ;)
+
+Mon Aug 26 03:45:55 UTC 2019
+
+Adafruit SAMD boards 1.2.9 in Boards Manager updated to current day version.
+
+This fixes the bossac issue, and creates no new ones
+(at a glance; no detailed investigation of that).
+
+Target (ItsyBitsyM4) was uploaded to correctly, and
+a quick test (the 'load' word) shows basic flash still
+functioning with the most recent BSP.
+
+Adafruit SAMD Boards 1.5.3 is what was installed, just now.
+Working fine.
+
+Mon Aug 26 03:37:38 UTC 2019
+
+An attempt to log some of the difficulties, fixes,
+and such.  No guarantees it'll be useful to others;
+these can be seen as 'notes to self' haha.
+
+wa1tnr

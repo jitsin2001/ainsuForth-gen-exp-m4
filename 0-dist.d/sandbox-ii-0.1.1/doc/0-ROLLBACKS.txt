@@ -1,0 +1,176 @@
+Mon Aug 26 03:35:32 UTC 2019
+
+Browsing
+  https://github.com/adafruit/Adafruit_SPIFlash.git
+
+(in gitk) points to this commit:
+
+91c7d1d6919fcf87bea2f0ee15c 2019-06-13 12:59:36 hathach
+
+as probably a great place to start 'getting modern'.
+
+
+Mon Aug 26 01:32:29 UTC 2019
+
+Rollbacks - to compile the software found here
+as-is.  Maybe. ;)
+
+ * git clone https://github.com/adafruit/ArduinoCore-samd.git
+
+   Use the Arduino IDE; this is just for reference.
+
+   Version info soon. ;)
+
+   Visit:
+
+   https://github.com/adafruit/ArduinoCore-samd/releases
+
+This seems to be the one to point to the correct board support package:
+
+   https://github.com/adafruit/arduino-board-index/tree/gh-pages/boards
+
+   Version 1.2.9 likely.  9 months ago (from late August, 2019).
+
+   The hint: Preferences dialog in Arduino IDE gives the .json locations
+   used to install the board support packages.
+
+   In the Arduino IDE, Tools > Board: > Boards Manager ... 
+   then Adafruit SAMD Boards by Adafruit version 1.5.2 INSTALLED
+
+   This is what is to be rolled back, to version 1.2.9 (LIKELY)
+
+   Rolling this back has a lot of consequences, if you are doing
+   any current work with the Adafruit SAMD series boards.
+
+   Basically, you'd have to roll it forward again (to the current
+   version) to avoid complex issues that *may* arise.
+
+LIBRARIES
+
+   In the Arduino IDE, select Tools > Manage Libraries ...
+
+   and look for Adafruit SPI   Adafruit QSPI
+
+   Adafruit SPIFlash by Adafruit
+   https://github.com/adafruit/Adafruit_SPIFlash
+
+   1.0.6 and 1.0.8 are candidates.
+
+   Start with 1.0.8 as that may've been the 'paydirt' one
+   for recent efforts that did succeed.
+
+   https://github.com/adafruit/Adafruit_SPIFlash/releases/tag/1.0.8
+
+   But use the Arduino IDE interface to do the install. ;)
+
+   Is corrupted!
+
+   3.1.1 was ('is') current in August 2019.
+
+   1.0.6 did install through the IDE and will be tested, first.
+   It is dated October 11, 2018.
+
+   - - - -
+
+   Now, QSPI
+
+   https://github.com/adafruit/Adafruit_QSPI/releases
+
+   for your own information, only. Again, use the Arduino IDE for
+   the installation, itself.
+
+   Version 1.0.2 very likely to work; it was dated October 11, 2018:
+
+   https://github.com/adafruit/Adafruit_QSPI/releases/tag/1.0.2
+
+   This one (Adafruit_QSPI) may be unavailable through the IDE,
+   so the .ZIP file method will be used, instead (to get the
+   rolled back lib).  Current lib may be rescinded.
+
+   It's a good idea to close the Arduino IDE before putting the .ZIP
+   file into your libraries directory.
+
+   The unpacked .ZIP produces:
+
+   Adafruit_QSPI-1.0.2  - a directory, which is to be renamed as:
+
+   Adafruit_QSPI  using your operating system (Linux, Windows, MacOS)
+
+   Note that this is a direct analogy for Adafruit_QSPI-master which
+   is what you'd have if you just grabbed the .ZIP from the main page
+   of this repository.
+
+   Same exact idea.  The -1.0.2 helps you to understand that this
+   is a (in this case, past) released version of the software.
+
+   Linux people do it this way, if they like:
+
+    $ mv     ./Adafruit_QSPI-1.0.2   ./Adafruit_QSPI
+    $ mv     ./Adafruit_QSPI         ~/Arduino/libraries/
+    $ ls -1  ~/Arduino/libraries | egrep    Adafruit_QSPI
+    Adafruit_QSPI
+
+   That assumes it was not there (at all) prior.
+   Additional steps needed, if a version of this library
+   was already there.
+
+   Only then, restart the Arduino IDE. It will scan the
+   ~/Arduino/libraries directory and pick up the new lib.
+
+   GOOD COMPILE.  Mon Aug 26 02:14:28 UTC 2019
+
+   The source compiles, when these three rollbacks were
+   accomplished: The Board Support (SAMD), the SPIFlash
+   and the QSPI libs (two libs and a board support package)
+   (as I'm calling it; don't know the correct name for it).
+
+   GOOD UPLOAD.  Mon Aug 26 02:47:15 UTC 2019
+
+   bossac was located for version 1.7.0, manually, and the
+   required command line for it was obtained from the
+   lower window of the Arduino IDE (this was enabled in
+   preferences).
+
+   The Forth ran, wrote and read to SPI flashrom, on the
+   target board: Adafruit Feather M0 Express (not the M4!)
+
+   This is as of August 26, 02:49 UTC, and wrt the repository
+   held in sandbox-ii on github.
+
+   It's a good test of the basics.
+
+
+SEE ALSO
+
+   Trouble?  Also possibly affected:
+
+   Adafruit DMA neopixel library
+   Adafruit DotStar library
+   Adafruit NeoMatrix ZeroDMA
+   Adafruit NeoPixel library
+
+   bossac appears to be an issue.
+
+   Feather M0 Express, bossac work-around:
+
+   bossac -i -d --port=ttyACM0 -U true -i -e -w -v /tmp/arduino_build_123456/ainsuForth-gen-exp-m4.ino.bin -R
+   Will do the job; but you have to find 1.7.0 version of bossac
+   (which may or may not be present).
+
+   The Adafruit SAMD board support package may be pointing
+   elsewhere (to a different bossac version).
+
+   ItsyBitsyM4 Express, bossac work-around:
+
+   Similarly, the Arduino IDE points to this copy (and version)
+   of bossac:
+
+     ./bossac/1.8.0-48-gb176eee/bossac -i -d --port=ttyACM0 -U -i --offset=0x4000 -e -w -v /tmp/arduino_build_123456/ainsuForth-gen-exp-m4.ino.bin -R
+
+   Note the important 0x4000 offset!  Do not omit it!
+
+   Not sure why the path to bossac (for each of the two kinds
+   of targets, M0 (SAMD21) and M4 (SAMD51) is not found by the
+   Arduino IDE.  Obvious suspect is rollback of adafruit's SAMD
+   board support.
+

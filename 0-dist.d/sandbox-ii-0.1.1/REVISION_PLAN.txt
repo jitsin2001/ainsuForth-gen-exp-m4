@@ -1,0 +1,80 @@
+August 2019 ainsuForth-gen-exp-m4
+
+sandbox-ii  -  to revise ainsu-forth-gen-exp-m4 in
+               a quiet place of study. ;)
+
+PURPOSE
+
+To redo the project with the newer file-oriented
+libraries from Adafruit.
+
+Back-burner project - other issues are pressing,
+unrelated to this YAFFA-ARM port.
+
+We'll see how this plays out.
+
+The plan is to roll back any lib (including board
+support package for the listed targets) (see below)
+to where the project functions well, again (currently
+broken for basic compile) (poor planning on necessary
+dependencies for a compile).
+
+Then compile.  Then introduce each change that is needed,
+to bring up to current (August, 2019).
+
+
+Project was working well in November, 2018, against
+all (then) current upstream libraries, including
+the board support package for the Arduino IDE
+for at least all these target boards from Adafruit:
+
+(In approximate order of acquisition)
+
+ * Feather M0 Express (first Adafruit target)
+ * Metro M0 Express
+ * Metro M4 Express
+ * Feather M4 Express
+ * NeoTrellis M4 Express
+ * ItsyBitsy M4 Express
+
+ * Gemma M0, Trinket M0 may also have support
+   (this is not specifically recollected at the
+   time of this writing, in August, 2019).
+
+ * ItsyBitsy M0 was not utilized, possibly, as
+   ItsyBitsy M4 was available when that sized
+   target was needed by this author. ;)
+
+
+Note: not all targets had 'Express' in their
+official names, possibly; they are listed here
+as 'Express' boards if they had any sort of
+external, SPI or QSPI flashROM soldered onto
+the target board at the Adafruit factory.
+
+
+
+HISTORY
+
+Around October, 2019, QSPI flashROM support did
+improve or change for the latest (at the time)
+Adafruit M4 targets.  Somewhere near there (culminating
+near November 11, 2018) the best of ainsuForth-gen-exp-m4
+was realized, against (then) current libraries.
+
+This was an exciting time for ainsuForth development!
+
+Dave Astels (dastels on Adafruit Discord) wrote up
+a wonderful article on ainsuForth-gen-exp-m4, for
+which this author is grateful (not to mention the
+WOW factor for everything Adafruit does in this
+area!)
+
+
+The current motivation, to get all this working again,
+in August 2019, stems directly from the publication
+of Dave's fine article (wow!) on learn.adafruit.com.
+So that his readers (thank you!) have something to
+work with, after discovering his writing. ;)
+
+Sun Aug 25 23:58:14 UTC 2019
