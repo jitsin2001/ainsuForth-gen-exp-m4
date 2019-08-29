@@ -12,33 +12,33 @@
     #include "../../yaffa.h"
 
     #ifdef EXT_KERN_GETLINE
-    #include "getline.h"
-    #ifdef HAS_QSPI_FLASHROM_LIB
-    #warning HAS_QSPI_FLASHROM_LIB includes extra code on line 16 __getline_m4_exp.cpp__
-    #define FLASH_DEVICE_GD25Q
-    #ifdef FLASH_DEVICE_GD25Q
+        #include "getline.h"
+        #ifdef HAS_QSPI_FLASHROM_LIB
+            #warning HAS_QSPI_FLASHROM_LIB includes extra code on line 16 __getline_m4_exp.cpp__
+            #define FLASH_DEVICE_GD25Q
 
-    #include <SPI.h>
-    #include <SdFat.h>
-    #include <Adafruit_SPIFlash.h>
+            #ifdef FLASH_DEVICE_GD25Q
+                #include <SPI.h>
+                #include <SdFat.h>
+                #include <Adafruit_SPIFlash.h>
 
-    #if defined(__SAMD51__) || defined(NRF52840_XXAA)
-Adafruit_FlashTransport_QSPI flashTransport(PIN_QSPI_SCK,
-    PIN_QSPI_CS, PIN_QSPI_IO0, PIN_QSPI_IO1, PIN_QSPI_IO2,
-      PIN_QSPI_IO3);
-    #else
-    #if (SPI_INTERFACES_COUNT == 1)
-    Adafruit_FlashTransport_SPI flashTransport(SS, &SPI);
-    #else
-    Adafruit_FlashTransport_SPI flashTransport(SS1, &SPI1);
-    #endif
-    #endif
+                #if defined(__SAMD51__) || defined(NRF52840_XXAA)
+                    Adafruit_FlashTransport_QSPI flashTransport(PIN_QSPI_SCK,
+                      PIN_QSPI_CS, PIN_QSPI_IO0, PIN_QSPI_IO1, PIN_QSPI_IO2,
+                        PIN_QSPI_IO3);
+                #else
+                    #if (SPI_INTERFACES_COUNT == 1)
+                        Adafruit_FlashTransport_SPI flashTransport(SS, &SPI);
+                    #else
+                        Adafruit_FlashTransport_SPI flashTransport(SS1, &SPI1);
+                    #endif
+                #endif
 
-Adafruit_SPIFlash flash(&flashTransport);
-FatFileSystem fatfs;
-File myFile;
-
-    #endif
+                Adafruit_SPIFlash flash(&flashTransport);
+                FatFileSystem fatfs;
+                File myFile;
+            #endif // #ifdef FLASH_DEVICE_GD25Q
+        #endif // #ifdef HAS_QSPI_FLASHROM_LIB
 
 /******************************************************************************/
 /** getDLKey                                                                 **/
@@ -49,10 +49,11 @@ File myFile;
 /**   Tab, Newline (0x0a) and standard (printable) characters                **/
 /******************************************************************************/
 
+        #ifdef HAS_QSPI_FLASHROM_LIB
+
 void setup_qspiFlashROM(void) {
 	Serial.print("Hello from setup_qspi m4 getline stuff.   ");
-        Serial.print("VALID m4 getline c9vj-p2-d93  ");
-
+        Serial.print("VALID m4 getline ca1b-sesi-c1-e23  ");
 
 	if (!flash.begin()) {
 		Serial.println("E: could not find flash on QSPI bus.");
