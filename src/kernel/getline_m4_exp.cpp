@@ -67,7 +67,6 @@ void setup_qspiFlashROM(void) {
 	Serial.println("NOV 2018: Mounted filesystem!");
 	}
 
-// ###bookmark
 /******************************************************************************/
 /** getLine                                                                  **/
 /**   read in a line of text ended by a Carriage Return (ASCII 13)           **/
@@ -142,21 +141,12 @@ File thisFile;
 					if (silentReading) { } else {
 						if (flags & ECHO_ON) Serial.print("\b \b");
 					}
-
-
-
 				}
 			}
 			else if (inChar == ASCII_TAB || inChar == ASCII_ESC) {
-
-
 				if (silentReading) { } else {
 					if (flags & ECHO_ON) Serial.print("\a");
 				}
-
-
-
-
 			}
 			else if (inChar == ASCII_CR || inChar == ASCII_NL) { // ainsuForth improvement
 
@@ -172,17 +162,10 @@ File thisFile;
 				// iirc, interactive typing to the interpreter masks
 				// this behavior, whereas a paste-in unmasks it.
 
-				// -----------------------------------------------------
-				// -----------------------------------------------------
-				// -----------------------------------------------------
-				// -----------------------------------------------------
-
-				// if (silentReading && spiFlashReading) { // the 'load' word
 				if (silentReading) { // the 'load' word
 				} else {
 					if (flags & ECHO_ON) Serial.print(" "); // seems to want a space after 'dot' for example.
 				}
-				// -----------------------------------------------------
 				// -----------------------------------------------------
 				// TRY TO REMEMBER:
 				// 
@@ -198,38 +181,23 @@ File thisFile;
 				// from the SPI FlashROM chip).
 				// -----------------------------------------------------
 
-				// debug // Serial.println("EVERYONE");
-				// Serial.println("debug: is flash waiting or not?");
 				if (spiFlashWaiting) {
-					// Serial.println("a good spot to turn off silentReading perhaps.");
 					// Serial.println("Flash is WAITING .. more to read.");
 				} else { 
 					silentReading = FALSE; // we are interactive once more, when spiFlashWaiting changes state
 				}
-
 				break;
-
 			} else {
-
-
-
 				// always suppress echo when the load word is executed.
 				if (silentReading && spiFlashReading) { // the 'load' word
 					int fakeSPxT = 0;
 				} else {
 					if (flags & ECHO_ON) {
-						// -----------------------------------------------------
-						// -----------------------------------------------------
-						// -----------------------------------------------------
 						if (silentReading) {
 						} else {
 							// main forth interpreter typing echo is right here:
 							Serial.print(inChar); // do NOT suppress this ordinarily, if ever.
 						}
-						// -----------------------------------------------------
-						// -----------------------------------------------------
-						// -----------------------------------------------------
-						// -----------------------------------------------------
 					}
 				}
 
@@ -247,13 +215,14 @@ File thisFile;
 
 #ifdef EXT_KERN_GETKEY
 
-		/******************************************************************************/
-		/** getKey                                                                   **/
-		/**   waits for the next valid key to be entered and return its value        **/
-		/**   Valid characters are:  Backspace, Carriage Return (0x0d), Escape,      **/
-		/**   Tab, Newline (0x0a) and standard (printable) characters                **/
-		/******************************************************************************/
-		char getKey(void) {
+// ###bookmark
+/******************************************************************************/
+/** getKey                                                                   **/
+/**   waits for the next valid key to be entered and return its value        **/
+/**   Valid characters are:  Backspace, Carriage Return (0x0d), Escape,      **/
+/**   Tab, Newline (0x0a) and standard (printable) characters                **/
+/******************************************************************************/
+char getKey(void) {
 			char inChar;
 			// the load word provides this boolean:
 			if (spiFlashReading) {
