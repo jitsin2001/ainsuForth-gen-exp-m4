@@ -1,3 +1,11 @@
+// Thu Aug 29 04:43:05 UTC 2019
+// On branch testing-pp-aa-
+
+// Strip getline_m4_exp.cpp of massive cruft.
+
+// see: src/kernel/getline_m4_exp.cpp
+
+
 // Thu Aug 29 01:47:50 UTC 2019
 // On branch  working_new_libs_aug_2019
 
