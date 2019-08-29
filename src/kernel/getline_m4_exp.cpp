@@ -2,43 +2,43 @@
 // 4737-a3c-00g- // ainsuForth-gen-exp-m4
 
 #ifdef HAS_EXP_MFOUR_QSPI_FLASH
-#define CURRENT_FILESYSTEM fatfs
+    #define CURRENT_FILESYSTEM fatfs
 
-#define SPI_FlashROM_FILENAME "/forth/ascii_xfer_a001.txt"
-#define SPI_FlashROM_TOPDIR   "/forth"
-#define WORKING_DIR "/forth"
+    #define SPI_FlashROM_FILENAME "/forth/ascii_xfer_a001.txt"
+    #define SPI_FlashROM_TOPDIR   "/forth"
+    #define WORKING_DIR "/forth"
 
-#include <Arduino.h>
-#include "../../yaffa.h"
+    #include <Arduino.h>
+    #include "../../yaffa.h"
 
-#ifdef EXT_KERN_GETLINE
-#include "getline.h"
-#ifdef HAS_QSPI_FLASHROM_LIB
-#warning HAS_QSPI_FLASHROM_LIB includes extra code on line 16 __getline_m4_exp.cpp__
-#define FLASH_DEVICE_GD25Q
-#ifdef FLASH_DEVICE_GD25Q
+    #ifdef EXT_KERN_GETLINE
+    #include "getline.h"
+    #ifdef HAS_QSPI_FLASHROM_LIB
+    #warning HAS_QSPI_FLASHROM_LIB includes extra code on line 16 __getline_m4_exp.cpp__
+    #define FLASH_DEVICE_GD25Q
+    #ifdef FLASH_DEVICE_GD25Q
 
-#include <SPI.h>
-#include <SdFat.h>
-#include <Adafruit_SPIFlash.h>
+    #include <SPI.h>
+    #include <SdFat.h>
+    #include <Adafruit_SPIFlash.h>
 
-#if defined(__SAMD51__) || defined(NRF52840_XXAA)
+    #if defined(__SAMD51__) || defined(NRF52840_XXAA)
 Adafruit_FlashTransport_QSPI flashTransport(PIN_QSPI_SCK,
     PIN_QSPI_CS, PIN_QSPI_IO0, PIN_QSPI_IO1, PIN_QSPI_IO2,
       PIN_QSPI_IO3);
-#else
-#if (SPI_INTERFACES_COUNT == 1)
-Adafruit_FlashTransport_SPI flashTransport(SS, &SPI);
-#else
-Adafruit_FlashTransport_SPI flashTransport(SS1, &SPI1);
-#endif
-#endif
+    #else
+    #if (SPI_INTERFACES_COUNT == 1)
+    Adafruit_FlashTransport_SPI flashTransport(SS, &SPI);
+    #else
+    Adafruit_FlashTransport_SPI flashTransport(SS1, &SPI1);
+    #endif
+    #endif
 
 Adafruit_SPIFlash flash(&flashTransport);
 FatFileSystem fatfs;
 File myFile;
 
-#endif
+    #endif
 
 /******************************************************************************/
 /** getDLKey                                                                 **/
@@ -51,8 +51,8 @@ File myFile;
 
 void setup_qspiFlashROM(void) {
 	Serial.print("Hello from setup_qspi m4 getline stuff.   ");
+        Serial.print("VALID m4 getline c9vj-p2-d93  ");
 
-	Serial.print("VALID m4 getline c9vj  ");
 
 	if (!flash.begin()) {
 		Serial.println("E: could not find flash on QSPI bus.");
@@ -77,16 +77,16 @@ void setup_qspiFlashROM(void) {
 /**   and Returns the length of the string stored                            **/
 /******************************************************************************/
 
-#ifdef HAS_QSPI_FLASH_DEMO
-File thisFile;
-#endif
+    #ifdef HAS_QSPI_FLASH_DEMO
+    File thisFile;
+    #endif
 
 
 	uint8_t getLine(char* ptr, uint8_t buffSize) {
 		char inChar;
 		uint8_t count = 0;
 
-#ifdef HAS_QSPI_FLASH_DEMO
+    #ifdef HAS_QSPI_FLASH_DEMO
 		if (spiFlashReading) {
 			if (CURRENT_FILESYSTEM.exists(SPI_FlashROM_FILENAME)) {
 				if (fileClosed) {
@@ -96,11 +96,11 @@ File thisFile;
 				}
 			}
 		}
-#endif
+    #endif
 
 // another getLine() stanza:
 		do {
-#ifdef HAS_QSPI_FLASH_DEMO
+    #ifdef HAS_QSPI_FLASH_DEMO
 			if (spiFlashReading) {
 				if (thisFile) {
 					if (thisFile.available()) {
@@ -118,7 +118,7 @@ File thisFile;
 				}
 
 			} else {
-#endif
+    #endif
 
 				if (noInterpreter) {
 					inChar = getKey();
@@ -128,9 +128,9 @@ File thisFile;
 				} else {
 					inChar = getKey(); 
 				}
-#ifdef HAS_QSPI_FLASH_DEMO
+    #ifdef HAS_QSPI_FLASH_DEMO
 			}
-#endif
+    #endif
 
 			// inChar is now populated; either by keypress or by byte stored in SPI flash.
 
@@ -211,11 +211,11 @@ File thisFile;
 			return (count);
 		}
 
-#endif
-#endif // #ifdef EXT_KERN_GETLINE
+    #endif
+    #endif // #ifdef EXT_KERN_GETLINE
 
 
-#ifdef EXT_KERN_GETKEY
+    #ifdef EXT_KERN_GETKEY
 
 // ###bookmark
 /******************************************************************************/
@@ -255,7 +255,7 @@ char getKey(void) {
 			}
 		}
 
-#endif
+    #endif
 
 
 
@@ -267,7 +267,7 @@ char getKey(void) {
 		const char eflmkdir_str[] = "eflmkdir"; // forth vocabulary external flash mkdir
 		void _eflmkdir(void) {
 
-#ifdef HAS_QSPI_FLASH_DEMO
+    #ifdef HAS_QSPI_FLASH_DEMO
 
 			if (!CURRENT_FILESYSTEM.exists(SPI_FlashROM_TOPDIR)) {
 				Serial.println("/forth directory not found, creating...");
@@ -277,28 +277,28 @@ char getKey(void) {
 				}
 				Serial.println("Created /forth directory!");
 			}
-#endif
+    #endif
 
 
 
 
-#ifdef NEVER_DEFINED_TEN_THREE // nonsense tag to prevent compile
-#ifndef HAS_STANDARD_BUILD_HERE
+    #ifdef NEVER_DEFINED_TEN_THREE // nonsense tag to prevent compile
+    #ifndef HAS_STANDARD_BUILD_HERE
 
-#ifdef HAS_QSPI_FLASH_DEMO
+    #ifdef HAS_QSPI_FLASH_DEMO
 			if (!CURRENT_FILESYSTEM.exists(SPI_FlashROM_TOPDIR)) {
 				Serial.println("BAD ROBOT - fatfs.exists fails on line 473 June 17, 2018.");
 			} else {
 				Serial.println("local: assuming /forth directory already exists.");
 			}
-#endif
+    #endif
 
-#endif
-#endif
+    #endif
+    #endif
 			}
 
 
-#ifdef HAS_QSPI_FLASH_DEMO
+    #ifdef HAS_QSPI_FLASH_DEMO
 			void remove_a_file(void) {
 				Serial.print("file: Deleting ");
 				Serial.print(SPI_FlashROM_FILENAME);
@@ -326,9 +326,9 @@ char getKey(void) {
 					writeFile.close(); // housekeeping.
 				}
 			}
-#endif
+    #endif
 
-#ifdef HAS_QSPI_FLASH_DEMO
+    #ifdef HAS_QSPI_FLASH_DEMO
 			void write_a_capture_file(void) {
 				// Create a file in the test directory and write data to it.
 				// Note the FILE_WRITE parameter which tells the library you intend to
@@ -354,12 +354,12 @@ char getKey(void) {
 				// Close the file when finished writing.
 				writeFile.close();
 			}
-#endif
+    #endif
 
 
-#ifndef HAS_STANDARD_BUILD_HERE
+    #ifndef HAS_STANDARD_BUILD_HERE
 
-#ifdef HAS_QSPI_FLASH_DEMO
+    #ifdef HAS_QSPI_FLASH_DEMO
 			void read_a_test_file(void) {
 				// Now open the same file but for reading.
 				File readFile = CURRENT_FILESYSTEM.open(SPI_FlashROM_FILENAME, FILE_READ);
@@ -407,13 +407,13 @@ char getKey(void) {
 				// Close the file when finished reading.
 				readFile.close();
 			}
-#endif
-#endif
+    #endif
+    #endif
 
-#ifdef HAS_QSPI_FLASH_DEMO
+    #ifdef HAS_QSPI_FLASH_DEMO
 
 
-#ifndef HAS_STANDARD_BUILD_HERE
+    #ifndef HAS_STANDARD_BUILD_HERE
 			void read_from_code_py_file(void) {
 				File readCodeFile = CURRENT_FILESYSTEM.open("/main.py", FILE_READ);
 				if (!readCodeFile) {
@@ -444,8 +444,8 @@ char getKey(void) {
 
 				readCodeFile.close();
 			}
-#endif
-#endif
+    #endif
+    #endif
 
 
 
@@ -472,9 +472,9 @@ char getKey(void) {
 
 
 
-#ifdef HAS_QSPI_FLASH_DEMO
+    #ifdef HAS_QSPI_FLASH_DEMO
 			void tail_code_bb(void) {
-#ifndef HAS_STANDARD_BUILD_HERE
+    #ifndef HAS_STANDARD_BUILD_HERE
 				File testDirRoot = CURRENT_FILESYSTEM.open("/");
 				if (!testDirRoot) {
 					Serial.println("Error, failed to open root directory!");
@@ -482,9 +482,9 @@ char getKey(void) {
 				} else {
 					Serial.println("Made it past the opening of the root directory.");
 				}
-#endif
+    #endif
 
-#ifdef HAS_STANDARD_BUILD_HERE
+    #ifdef HAS_STANDARD_BUILD_HERE
 				File testDir = CURRENT_FILESYSTEM.open("/lib");
 				if (!testDir) {
 					Serial.println("Error, failed to open test directory!");
@@ -492,27 +492,27 @@ char getKey(void) {
 				} else {
 					Serial.println("Made it past the opening of the /lib directory.");
 				}
-#endif
+    #endif
 
-#ifndef HAS_STANDARD_BUILD_HERE
+    #ifndef HAS_STANDARD_BUILD_HERE
 				if (!testDirRoot.isDirectory()) {
 					Serial.println("Error, expected root to be a directory!");
 					while(1);
 				} else {
 					Serial.println("Good - root is a directory - not a file.  Continue.");
 				}
-#endif
+    #endif
 
-#ifdef HAS_STANDARD_BUILD_HERE
+    #ifdef HAS_STANDARD_BUILD_HERE
 				if (!testDir.isDirectory()) {
 					Serial.println("Error, expected /lib to be a directory!");
 					while(1);
 				} else {
 					Serial.println("Good - /lib is a directory - not a file.  Continue.");
 				}
-#endif
+    #endif
 
-#ifndef HAS_STANDARD_BUILD_HERE
+    #ifndef HAS_STANDARD_BUILD_HERE
 				Serial.println("Listing children of root directory:");
 				File child = testDirRoot.openNextFile();
 				while (child) {
@@ -525,14 +525,14 @@ char getKey(void) {
 				}
 
 				testDirRoot.rewindDirectory();
-#endif
+    #endif
 
 
 				while(1); Serial.println("WILL ROBINSON.");
 
 
 
-#ifdef HAS_STANDARD_BUILD_HERE
+    #ifdef HAS_STANDARD_BUILD_HERE
 				Serial.println("Listing children of directory /lib:");
 				File child = testDir.openNextFile();
 				while (child) {
@@ -546,11 +546,11 @@ char getKey(void) {
 
 
 				testDir.rewindDirectory();
-#endif
+    #endif
 
 
 
-#ifdef HAS_EXTRA_STANDARD_BUILD_HERE
+    #ifdef HAS_EXTRA_STANDARD_BUILD_HERE
 
 				File test2File = CURRENT_FILESYSTEM.open("/forth/foo/test2.txt", FILE_WRITE);
 				test2File.close();
@@ -573,75 +573,13 @@ char getKey(void) {
 				Serial.println("Test directory was deleted!");
 
 				Serial.println("Finished!");
-#endif
+    #endif
 
-#ifndef HAS_STANDARD_BUILD_HERE
-#endif
+    #ifndef HAS_STANDARD_BUILD_HERE
+    #endif
 
 			}
-#endif
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    #endif
 
 
 
