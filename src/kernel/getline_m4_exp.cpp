@@ -52,6 +52,8 @@ File myFile;
 void setup_qspiFlashROM(void) {
 	Serial.print("Hello from setup_qspi m4 getline stuff.   ");
 
+	Serial.print("VALID m4 getline c9vj  ");
+
 	if (!flash.begin()) {
 		Serial.println("E: could not find flash on QSPI bus.");
 		while(1);
@@ -260,89 +262,15 @@ char getKey(void) {
 
 
 
-
 		//  ---------------------------    ascii  transfer   --------------------------
 
-
-		//                      03 August 2017  15:49z begin.
-
-
-		// Wed Aug  2 01:22:51 UTC 2017
-		// 4735-b0c-03-
-
-		// #include <Arduino.h>
-		// #include "../../yaffa.h"
-		// #include "fatfs_writefile.h"
-
-		// Adafruit SPI Flash FatFs Full Usage Example
-		// Author: Tony DiCola
-
-		// locally modified July 2017 - wa1tnr
-
-		// modified to look at python in the fatfs - code.py and the /lib.
-
-		// This is an example of all the functions in the SPI Flash
-		// FatFs library.  Note that you MUST have a flash chip that's
-		// formatted with a flash filesystem before running.  See the
-		// fatfs_format example to perform this formatting.
-		//
-		// In general the API for this library closely follows the API
-		// for the Arduino SD card library.  However instead of interacting
-		// with a global SD object you create an instance of a fatfs class
-		// and use its open, exists, etc. functions.  See the SD library
-		// reference for more inspiration and examples to adapt:
-		//   https://www.arduino.cc/en/reference/SD
-		//
-		// Usage:
-		// - Modify the pins and type of fatfs object in the config
-		//   section below if necessary (usually not necessary).
-		// - Upload this sketch to your M0 express board.
-		// - Open the serial monitor at 115200 baud.  You should see the
-		//   example start to run and messages printed to the monitor.
-		//   If you don't see anything close the serial monitor, press
-		//   the board reset buttton, wait a few seconds, then open the
-		//   serial monitor again.
-		// #include <SPI.h>
-		// #include <Adafruit_SPIFlash.h>
-		// #include <Adafruit_SPIFlash_FatFs.h>
-
-
-		// Configuration of the flash chip pins and flash fatfs object.
-		// You don't normally need to change these if using a Feather/Metro
-		// M0 express board.
-		// #define FLASH_TYPE     SPIFLASHTYPE_W25Q16BV  // Flash chip type.
-		// If you change this be
-		// sure to change the fatfs
-		// object type below to match.
-		// #define FLASH_SS       SS                    // Flash chip SS pin.
-		// #define FLASH_SPI_PORT SPI                   // What SPI port is Flash on?
-
-		// SHOULD NOT BE NEEDED 06 Aug:  Adafruit_SPIFlash ascii_xfer_flash(FLASH_SS, &FLASH_SPI_PORT);     // Use hardware SPI 
-
-		// Alternatively you can define and use non-SPI pins!
-		// Adafruit_SPIFlash flash(FLASH_SCK, FLASH_MISO, FLASH_MOSI, FLASH_SS);
-
-		// Adafruit_W25Q16BV_FatFs ascii_xfer_fatfs(ascii_xfer_flash);
-
-
 		const char eflmkdir_str[] = "eflmkdir"; // forth vocabulary external flash mkdir
-		// void create_test_directory(void) {
 		void _eflmkdir(void) {
-			// Check if a directory called 'test' exists and create it if not there.
-			// Note you should _not_ add a trailing slash (like '/test/') to directory names!
-			// You can use the same exists function to check for the existance of a file too.
 
 #ifdef HAS_QSPI_FLASH_DEMO
-			// #ifdef HAS_STANDARD_BUILD_HERE
 
-			// #define SPI_FlashROM_TOPDIR   "/forth"
-			// if (!fatfs.exists("/test")) {
-			// if (!fatfs.exists(SPI_FlashROM_TOPDIR)) {
 			if (!CURRENT_FILESYSTEM.exists(SPI_FlashROM_TOPDIR)) {
 				Serial.println("/forth directory not found, creating...");
-				// Use mkdir to create directory (note you should _not_ have a trailing slash).
-				// if (!fatfs.mkdir("/test")) {
-				// if (!fatfs.mkdir(SPI_FlashROM_TOPDIR)) {
 				if (!CURRENT_FILESYSTEM.mkdir(SPI_FlashROM_TOPDIR)) {
 					Serial.println("Error, failed to create test directory!");
 					while(1);
@@ -358,9 +286,6 @@ char getKey(void) {
 #ifndef HAS_STANDARD_BUILD_HERE
 
 #ifdef HAS_QSPI_FLASH_DEMO
-			// #define SPI_FlashROM_TOPDIR   "/forth"
-			// if (!fatfs.exists("/test")) { Serial.println("BAD ROBOT - fatfs.exists fails on line 97.");
-			// if (!fatfs.exists(SPI_FlashROM_TOPDIR)) {
 			if (!CURRENT_FILESYSTEM.exists(SPI_FlashROM_TOPDIR)) {
 				Serial.println("BAD ROBOT - fatfs.exists fails on line 473 June 17, 2018.");
 			} else {
@@ -379,7 +304,6 @@ char getKey(void) {
 				Serial.print(SPI_FlashROM_FILENAME);
 				Serial.println("...");
 
-				// if (!fatfs.remove(SPI_FlashROM_FILENAME)) {
 				if (!CURRENT_FILESYSTEM.remove(SPI_FlashROM_FILENAME)) {
 					Serial.print("Error, file ");
 					Serial.print(SPI_FlashROM_FILENAME);
@@ -387,10 +311,7 @@ char getKey(void) {
 					while(1);
 				}
 				Serial.println("Deleted file!");
-				// kludge: disallow this filename to be missing from the directory - create a blank new file:
-				// File writeFile = fatfs.open(SPI_FlashROM_FILENAME, FILE_WRITE);
 				File writeFile = CURRENT_FILESYSTEM.open(SPI_FlashROM_FILENAME, FILE_WRITE);
-				// if (!CURRENT_FILESYSTEM.remove(SPI_FlashROM_FILENAME)) {
 
 				if (!writeFile) {
 					Serial.print("Error, failed to open ");
@@ -402,7 +323,6 @@ char getKey(void) {
 					Serial.println("An empty new file was created in its place.");
 					Serial.println("This kludge will go away when multi-filename usage is more fully integrated.");
 					writeFile.println(" ");
-					// writeFile.println(".( WRITE FILE is done.\) cr");
 					writeFile.close(); // housekeeping.
 				}
 			}
@@ -419,12 +339,6 @@ char getKey(void) {
 				// of FILE_WRITE), see documentation at:
 				//   http://elm-chan.org/fsw/ff/en/open.html
 
-				// 03 Aug 15:52z -- try to use existing fatfs 'handle' / whatever it is
-				// result: does compile just fine.
-
-				// File writeFile = ascii_xfer_fatfs.open("/test/ascii_xfer_test.txt", FILE_WRITE);
-				// CURRENT_FILESYSTEM fatfs
-				// File writeFile =               fatfs.open(SPI_FlashROM_FILENAME, FILE_WRITE);
 				File writeFile =               CURRENT_FILESYSTEM.open(SPI_FlashROM_FILENAME, FILE_WRITE);
 				if (!writeFile) {
 					Serial.print("Error, failed to open ");
@@ -432,19 +346,13 @@ char getKey(void) {
 					Serial.println(" for writing!");
 					while(1);
 				}
-				// debug: // Serial.println("Opened file /forth/ascii_xfer_test.txt for writing/appending...");
 
-				// Once open for writing you can print to the file as if you're printing
-				// to the serial terminal, the same functions are available.
 
-				// payload -- download mode.
 
-				// model: Serial.print(cpSource);
 				writeFile.println(cpSource);
 
 				// Close the file when finished writing.
 				writeFile.close();
-				// debug: // Serial.println("Wrote -- appended -- to file /forth/ascii_xfer_test.txt!");
 			}
 #endif
 
@@ -454,13 +362,8 @@ char getKey(void) {
 #ifdef HAS_QSPI_FLASH_DEMO
 			void read_a_test_file(void) {
 				// Now open the same file but for reading.
-				// cheap_test: File readFile = fatfs.open("/forth/job.fs",             FILE_READ);
-				// CURRENT_FILESYSTEM fatfs
-				// File readFile = fatfs.open(SPI_FlashROM_FILENAME, FILE_READ);
 				File readFile = CURRENT_FILESYSTEM.open(SPI_FlashROM_FILENAME, FILE_READ);
 				if (!readFile) {
-					// cheap_test: Serial.println("Error, failed to open job.fs for reading!");
-					// Serial.println("Error, failed to open /forth/ascii_xfer_test.txt for reading!");
 					Serial.print("Error, failed to open ");
 					Serial.print(SPI_FlashROM_FILENAME);
 					Serial.println(" for reading!");
@@ -471,7 +374,6 @@ char getKey(void) {
 				//   https://www.arduino.cc/en/reference/SD
 				// Read a line of data:
 				String line = readFile.readStringUntil('\n');
-				// cheap_test: Serial.print("First line of job.fs: "); Serial.println(line);
 				Serial.print("First line of ");
 				Serial.print(SPI_FlashROM_FILENAME);
 				Serial.println(line);
@@ -513,43 +415,33 @@ char getKey(void) {
 
 #ifndef HAS_STANDARD_BUILD_HERE
 			void read_from_code_py_file(void) {
-				// CURRENT_FILESYSTEM fatfs
-				// File readCodeFile = fatfs.open("/main.py", FILE_READ);
 				File readCodeFile = CURRENT_FILESYSTEM.open("/main.py", FILE_READ);
 				if (!readCodeFile) {
 					Serial.println("Error, failed to open code.py for reading!");
 					while(1);
 				}
 
-				// Read a line of data:
 				String line = readCodeFile.readStringUntil('\n');
 				Serial.print("First line of code.py: "); Serial.println(line);
 
-				// You can get the current position, remaining data, and total size of the file:
 				Serial.print("Total size of code.py (bytes): "); Serial.println(readCodeFile.size(), DEC);
 				Serial.print("Current position in code.py: "); Serial.println(readCodeFile.position(), DEC);
 				Serial.print("Available data to read in code.py: "); Serial.println(readCodeFile.available(), DEC);
 
-				// And a few other interesting attributes of a file:
 				Serial.print("File name: "); Serial.println(readCodeFile.name());
 				Serial.print("Is file a directory? "); Serial.println(readCodeFile.isDirectory() ? "Yes" : "No");
 
-				// You can seek around inside the file relative to the start of the file.
-				// For example to skip back to the start (position 0):
 				if (!readCodeFile.seek(0)) {
 					Serial.println("Error, failed to seek back to start of file!");
 					while(1);
 				}
 
-				// And finally to read all the data and print it out a character at a time
-				// (stopping when end of file is reached):
 				Serial.println("Entire contents of code.py:");
 				while (readCodeFile.available()) {
 					char c = readCodeFile.read();
 					Serial.print(c);
 				}
 
-				// Close the file when finished reading.
 				readCodeFile.close();
 			}
 #endif
@@ -582,11 +474,7 @@ char getKey(void) {
 
 #ifdef HAS_QSPI_FLASH_DEMO
 			void tail_code_bb(void) {
-				// You can open a directory to list all the children (files and directories).
-				// Just like the SD library the File type represents either a file or directory.
 #ifndef HAS_STANDARD_BUILD_HERE
-				// CURRENT_FILESYSTEM fatfs
-				// File testDirRoot = fatfs.open("/");
 				File testDirRoot = CURRENT_FILESYSTEM.open("/");
 				if (!testDirRoot) {
 					Serial.println("Error, failed to open root directory!");
@@ -597,7 +485,6 @@ char getKey(void) {
 #endif
 
 #ifdef HAS_STANDARD_BUILD_HERE
-				// CURRENT_FILESYSTEM fatfs
 				File testDir = CURRENT_FILESYSTEM.open("/lib");
 				if (!testDir) {
 					Serial.println("Error, failed to open test directory!");
@@ -629,27 +516,18 @@ char getKey(void) {
 				Serial.println("Listing children of root directory:");
 				File child = testDirRoot.openNextFile();
 				while (child) {
-					// Print the file name and mention if it's a directory.
 					Serial.print("- "); Serial.print(child.name());
 					if (child.isDirectory()) {
 						Serial.print(" (directory)");
 					}
 					Serial.println();
-					// Keep calling openNextFile to get a new file.
-					// When you're done enumerating files an unopened one will
-					// be returned (i.e. testing it for true/false like at the
-					// top of this while loop will fail).
 					child = testDirRoot.openNextFile();
 				}
 
-				// If you want to list the files in the directory again call
-				// rewindDirectory().  Then openNextFile will start from the
-				// top again.
 				testDirRoot.rewindDirectory();
 #endif
 
 
-				// hold: while(1); Serial.println("WILL ROBINSON.");
 				while(1); Serial.println("WILL ROBINSON.");
 
 
@@ -658,23 +536,15 @@ char getKey(void) {
 				Serial.println("Listing children of directory /lib:");
 				File child = testDir.openNextFile();
 				while (child) {
-					// Print the file name and mention if it's a directory.
 					Serial.print("- "); Serial.print(child.name());
 					if (child.isDirectory()) {
 						Serial.print(" (directory)");
 					}
 					Serial.println();
-					// Keep calling openNextFile to get a new file.
-					// When you're done enumerating files an unopened one will
-					// be returned (i.e. testing it for true/false like at the
-					// top of this while loop will fail).
 					child = testDir.openNextFile();
 				}
 
 
-				// If you want to list the files in the directory again call
-				// rewindDirectory().  Then openNextFile will start from the
-				// top again.
 				testDir.rewindDirectory();
 #endif
 
@@ -682,34 +552,20 @@ char getKey(void) {
 
 #ifdef HAS_EXTRA_STANDARD_BUILD_HERE
 
-				// Delete a file with the remove command.  For example create a test2.txt file
-				// inside /test/foo and then delete it.
-				// CURRENT_FILESYSTEM fatfs
-				// File test2File = fatfs.open("/forth/foo/test2.txt", FILE_WRITE);
 				File test2File = CURRENT_FILESYSTEM.open("/forth/foo/test2.txt", FILE_WRITE);
 				test2File.close();
 				Serial.println("Deleting /forth/foo/test2.txt...");
-				// CURRENT_FILESYSTEM fatfs
 				if (!CURRENT_FILESYSTEM.remove("/forth/foo/test2.txt")) {
 					Serial.println("Error, couldn't delete test.txt file!");
 					while(1);
 				}
 				Serial.println("Deleted file!");
 
-				// Delete a directory with the rmdir command.  Be careful as
-				// this will delete EVERYTHING in the directory at all levels!
-				// I.e. this is like running a recursive delete, rm -rf, in
-				// unix filesystems!
 				Serial.println("Deleting /test directory and everything inside it...");
-				// CURRENT_FILESYSTEM fatfs
-				// if (!fatfs.rmdir("/test")) {
 				if (!CURRENT_FILESYSTEM.rmdir("/test")) {
 					Serial.println("Error, couldn't delete test directory!");
 					while(1);
 				}
-				// Check that test is really deleted.
-				// CURRENT_FILESYSTEM fatfs
-				// if (fatfs.exists("/test")) {
 				if (CURRENT_FILESYSTEM.exists("/test")) {
 					Serial.println("Error, test directory was not deleted!");
 					while(1);
@@ -791,19 +647,11 @@ char getKey(void) {
 
 
 			void ascii_xfer_spi_flash_main(void) {
-				// SHOULD NOT BE NEEDED 06 AUG: ascii_xfer_setup_spi_flash();
-				// _eflmkdir(); // OLD NAME WAS: create_test_directory();
-				// write_a_test_file();
-				// read_a_test_file();
 				read_from_code_py_file(); 
 				tail_code_bb();
 
 			}
 
-			// void loop_flash_main(void) {
-			// Nothing to be done in the main loop.
-			// delay(100);
-			// }
 
 #endif // #ifdef HAS_EXP_MFOUR_QSPI_FLASH - entire file omitted when this flag is set
 
