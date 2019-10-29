@@ -7,6 +7,15 @@ ainsuForth - generalized - all targets including SAMD51 M4 - experimental
 
 (previously ainsuForth-gen-exp)
 
+29 October 2019 update to this README.md file:
+
+Does NOT compile for Trinket M0 (getline has a problem,
+probably due to new upstream library for SPI/QSPI flashROM
+support).
+
+
+(resume original document prior to 29 Oct 2019):
+
 gen-exp means generalized and experimental; generalized
 to all the available target boards (trying to move as
 much of that into compatibility.h as a single-source
